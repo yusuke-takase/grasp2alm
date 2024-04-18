@@ -632,14 +632,14 @@ class BeamMap:
 def _get_beam_polar_value(beam:BeamPolar, theta, phi, s):
     """Calculate the value of the beam at a given theta, phi, and Stokes parameter.
 
-    Parameters:
-    - beam (BeamPolar): The polar beam object.
-    - theta (float or array-like): The theta value(s) at which to evaluate the beam.
-    - phi (float or array-like): The phi value(s) at which to evaluate the beam.
-    - s (int): The Stokes parameter index.
+    Args:
+        beam (BeamPolar): The polar beam object.
+        theta (float or array-like): The theta value(s) at which to evaluate the beam.
+        phi (float or array-like): The phi value(s) at which to evaluate the beam.
+        s (int): The Stokes parameter index.
 
     Returns:
-    - value (float or array-like): The value(s) of the beam at the given theta, phi, and Stokes parameter.
+        value (float or array-like): The value(s) of the beam at the given theta, phi, and Stokes parameter.
 
     """
     theta_step = (beam.theta_rad_max - beam.theta_rad_min) / (beam.ntheta - 1)
