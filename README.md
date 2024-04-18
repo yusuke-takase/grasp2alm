@@ -10,7 +10,6 @@ Class to hold the data from a beam grid file of GRASP.
 
 #### Methods
 
-- `__post_init__(self)`: Reads and parses the beam grid file.
 - `to_polar(self, copol_axis="x")`: Converts the beam grid to polar coordinates.
 - `plot(self, pol='co', color_resol=20, figsize=6, cmap="jet", return_fields=False)`: Plots the beam grid.
 
@@ -22,7 +21,6 @@ Class to hold the data from a beam cut file of GRASP.
 
 #### Methods
 
-- `__post_init__(self)`: Performs post-initialization tasks.
 - `to_polar(self, copol_axis="x")`: Converts the beam to polar coordinates.
 - `plot(self, pol='co', color_resol=20, figsize=6, cmap="jet",return_fields=False)`: Plots the beam.
 
@@ -37,9 +35,15 @@ Internally, this package uses the 'Ludwig 3' definition for thepolarisation basi
 
 #### Methods
 
-- `stokes_rotate(healpy_pol_convention=True)`: Rotate the polarization beam.
+- `stokes_rotate(healpy_pol_convention=True)`: Rotates Q and U Stokes parameters from the co-cross basis to the polar basis.
+  The Q and U Stokes parameters are usually represented in the
+  co-cross basis, where the co-polar direction is aligned with the
+  y-axis (consistent with Ludwig 3 convention). For the purposes of
+  extracting the spherical harmonic coefficients, it is more useful
+  to represent them in the polar basis. This routine should only be
+  called just before the spherical transform routines.
 - `to_map(nside, healpy_pol_convention=True, nstokes=3, outOftheta_val=0.0)`: Convert the beam to a map.
-- `plot(stokes="I", color_resol=20, figsize=6, cmap="jet", return_fields=False)`: Plot the beam.
+- `plot(stokes="I", color_resol=20, figsize=6, cmap="jet", return_fields=False)`: Plots the beam.
 
 ---
 
@@ -54,6 +58,8 @@ Represents a beam map.
 ## Function Descriptions
 
 ### Function: grasp2blm
+
+Convert a GRASP file to a spherical harmonic coefficients of beam map.
 
 #### Arguments
 
