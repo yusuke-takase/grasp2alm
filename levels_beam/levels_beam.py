@@ -269,15 +269,15 @@ class BeamCut:
             return_fields=False): Plots the beam.
 
     """
-    header: str = ""   # TEXT - Record with identification text
-    vini: float = 0.0  # Initial value
-    vinc: float = 0.0  # Increment
-    vnum: int = 0      # Number of values in cut
-    c: np.ndarray = np.array([]) # Constant
-    icomp: int = 0     # Polarization control parameter.
-    icut: int = 0      # Control parameter of cut.
-    ncomp: int = 0     # Number of field components
-    ncut: int = 0      # Number of cuts
+    header: str = ""
+    vini: float = 0.0
+    vinc: float = 0.0
+    vnum: int = 0
+    c: np.ndarray = np.array([])
+    icomp: int = 0
+    icut: int = 0
+    ncomp: int = 0
+    ncut: int = 0
     amp: np.ndarray = np.array([])
 
     def __init__(self, filepath):
@@ -342,7 +342,7 @@ class BeamCut:
 
         """
         copol_axis = copol_axis.lower()
-        # Check metadata of input beam.
+
         if self.icomp != 3:
             raise ValueError("Error in BeamCut.to_polar: beam is not in linear 'co' and 'cx' components")
         if self.icut != 1:
