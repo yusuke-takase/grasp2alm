@@ -1,4 +1,4 @@
-# levelS_beams
+# levels_beam
 
 This repository contains Python implementation of [the beam function for Planck LevelS](https://github.com/zonca/planck-levelS/tree/master/Beam).
 
