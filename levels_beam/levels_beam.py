@@ -610,6 +610,7 @@ class BeamMap:
         """
         assert lmax <= 3*self.nside-1, "Error in BeamMap.to_blm: lmax < 3*nside-1"
         assert mmax <= lmax, "Error in BeamMap.to_blm: mmax < lmax"
+        assert self.map.shape[0] <=3 , "Error in BeamMap.to_blm: map has more than 3 Stokes parameters"
 
         blm = hp.map2alm(self.map, lmax=lmax, mmax=mmax)
         return blm
