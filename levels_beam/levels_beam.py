@@ -446,8 +446,8 @@ class BeamPolar:
         filename (str): Name of the file.
 
     Methods:
-        stokes_rotate(healpy_pol_convention=True): Rotate the polarization beam.
-        to_map(nside, healpy_pol_convention=True, nstokes=3, outOftheta_val=0.0): Convert the beam to a map.
+        stokes_rotate(): Rotate the polarization beam.
+        to_map(nside, nstokes=3, outOftheta_val=0.0): Convert the beam to a map.
         plot(stokes="I", color_resol=20, figsize=6, cmap="jet", return_fields=False): Plot the beam.
 
     """
@@ -467,7 +467,7 @@ class BeamPolar:
         self.stokes = np.zeros((4, nphi, ntheta), dtype=float)
         self.filename = filename
 
-    def stokes_rotate(self, healpy_pol_convention=True):
+    def stokes_rotate(self):
         """Rotates Q and U Stokes parameters from the co-cross basis to the polar basis.
 
         The Q and U Stokes parameters are usually represented in the
@@ -477,9 +477,6 @@ class BeamPolar:
         to represent them in the polar basis.  This routine should only be
         called just before the spherical transform routines.
 
-        Args:
-            healpy_pol_convention (bool): Flag indicating whether to use the healpy polarization convention.
-
         Returns:
             BeamPolar: A new instance of BeamPolar with the rotated polarization beam.
 
@@ -487,9 +484,6 @@ class BeamPolar:
         beam_copy = copy.deepcopy(self)
         phi_step = 2 * np.pi / self.nphi
         theta_step = (self.theta_rad_max - self.theta_rad_min) / (self.ntheta - 1)
-
-        if healpy_pol_convention == False:
-            warnings.warn("Warning: Not healpy convention. Flip positive and negative value of polarization beam. See https://healpy.readthedocs.io/en/latest/blm_gauss_plot.html")
 
         theta_indices = np.arange(self.ntheta)
         theta_values = self.theta_rad_min + theta_indices * theta_step
@@ -503,20 +497,16 @@ class BeamPolar:
 
         q = self.stokes[1, :, valid_theta_indices]
         u = self.stokes[2, :, valid_theta_indices]
-        if healpy_pol_convention == False:
-            q = -q
-            u = -u
 
         beam_copy.stokes[1, :, valid_theta_indices] =  q * cos2phi[None, :] + u * sin2phi[None, :]
         beam_copy.stokes[2, :, valid_theta_indices] = -q * sin2phi[None, :] + u * cos2phi[None, :]
         return beam_copy
 
-    def to_map(self, nside, healpy_pol_convention=True, nstokes=3, outOftheta_val=0.0):
+    def to_map(self, nside, nstokes=3, outOftheta_val=0.0):
         """Convert the BeamPolar to a BeamMap.
 
         Args:
             nside (int): The nside parameter for the HEALPix map.
-            healpy_pol_convention (bool): Flag indicating whether to use the healpy polarization convention.
             nstokes (int): Number of Stokes parameters.
             outOftheta_val (float): Value to fill outside the valid theta range.
 
@@ -525,7 +515,7 @@ class BeamPolar:
 
         """
         npix = hp.nside2npix(nside)
-        beampolar = self.stokes_rotate(healpy_pol_convention=healpy_pol_convention)
+        beampolar = self.stokes_rotate()
         theta, phi = hp.pix2ang(nside, np.arange(npix))
 
         theta = theta[theta <= self.theta_rad_max]
@@ -669,7 +659,6 @@ def grasp2blm(
     mmax,
     outOftheta_val=0.0,
     copol_axis='x',
-    healpy_pol_convention=True
     ):
     """Convert a GRASP file to a spherical harmonic coefficients of beam map.
 
@@ -682,8 +671,6 @@ def grasp2blm(
             the valid theta range.
         copol_axis (str, optional): Axis of the co-polarization
             component. Defaults to 'x'.
-        healpy_pol_convention (bool, optional): Whether to use the Healpix
-            polarization convention. Defaults to True.
 
     Returns:
         blm (numpy.ndarray): Spherical harmonic coefficients of the beam map.
@@ -701,7 +688,6 @@ def grasp2blm(
     beam_polar = beam.to_polar(copol_axis)
     beam_map = beam_polar.to_map(
         nside,
-        healpy_pol_convention=healpy_pol_convention,
         outOftheta_val=outOftheta_val
         )
     blm = beam_map.to_blm(lmax, mmax)
