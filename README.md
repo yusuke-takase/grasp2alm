@@ -2,6 +2,20 @@
 
 This repository contains Python implementation of [the beam function for Planck LevelS](https://github.com/zonca/planck-levelS/tree/master/Beam).
 
+## Instllation
+
+```
+git clone https://github.com/yusuke-takase/levels_beam
+cd levels_beam
+pip install -e .
+```
+
+## Dependency
+
+- `numpy`
+- `healpy`
+- `matplotlib`
+
 ## Class Descriptions
 
 ### Class: BeamGrid
