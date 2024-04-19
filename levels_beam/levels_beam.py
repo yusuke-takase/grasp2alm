@@ -1,7 +1,5 @@
 from dataclasses import dataclass
 import numpy as np
-from dataclasses import dataclass
-import numpy as np
 import warnings
 import copy
 import healpy as hp
@@ -589,8 +587,6 @@ class BeamPolar:
             plt.colorbar(orientation="vertical", label=label)
         else:
             return (x, y, self.stokes[s])
-
-
 
 class BeamMap:
     """Represents a beam map.

@@ -1,0 +1,10 @@
+Metadata-Version: 2.1
+Name: levels_beam
+Version: 0.1.0
+Summary: A package that converts Planck-LevelS beam-related code to python, supporting the computation of Stokes parameter beams from the GRASP beam format, projection onto the HEALPix sphere, conversion to expansion coefficients for spherical harmonics, etc.
+Author: Yusuke Takase
+Author-email: takase_y@s.okayama-u.ac.jp
+License: MIT
+Requires-Dist: numpy
+Requires-Dist: healpy
+Requires-Dist: matplotlib
