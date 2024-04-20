@@ -500,7 +500,7 @@ class BeamPolar:
         beam_copy.stokes[2, :, valid_theta_indices] = -q * sin2phi[None, :] + u * cos2phi[None, :]
         return beam_copy
 
-    def to_map(self, nside, nstokes=3, outOftheta_val=0.0):
+    def to_map(self, nside, nstokes=3, outOftheta_val=hp.UNSEEN):
         """Convert the BeamPolar to a BeamMap.
 
         Args:
