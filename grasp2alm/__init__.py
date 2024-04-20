@@ -4,6 +4,7 @@ from .grasp2alm import (
     BeamPolar,
     BeamMap,
     grasp2alm,
+    grasp2alm_lsq
 )
 
 from .version import (
@@ -24,4 +25,5 @@ __all__ = [
     "BeamPolar",
     "BeamMap",
     "grasp2alm",
+    "grasp2alm_lsq"
 ]
