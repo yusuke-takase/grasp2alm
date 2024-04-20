@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 import numpy as np
-import warnings
 import copy
 import healpy as hp
 import matplotlib.pyplot as plt
@@ -230,9 +229,8 @@ class BeamGrid:
             dBz = 10*np.log10(z)
         elif pol == 'cx':
             z = np.real(self.amp[1])**2 + np.imag(self.amp[1])**2
-
-
             dBz = 10*np.log10(z)
+
         levels = np.linspace(np.min(dBz), np.max(dBz), color_resol)
         if not return_fields:
             plt.figure(figsize=(figsize,figsize))
@@ -586,7 +584,7 @@ class BeamMap:
         map (numpy.ndarray): The beam map data.
 
     Methods:
-        to_blm(lmax, mmax): Converts the beam map to spherical harmonic coefficients.
+        to_alm(lmax, mmax): Converts the beam map to spherical harmonic coefficients.
 
     """
 
@@ -594,7 +592,7 @@ class BeamMap:
         self.nside = hp.npix2nside(map.shape[1])
         self.map = map
 
-    def to_blm(self, lmax, mmax):
+    def to_alm(self, lmax, mmax):
         """Converts the beam map to spherical harmonic coefficients.
 
         Args:
@@ -608,16 +606,17 @@ class BeamMap:
             AssertionError: If lmax is greater than 3*nside-1 or if mmax is greater than lmax.
 
         """
-        assert lmax <= 3*self.nside-1, "Error in BeamMap.to_blm: lmax < 3*nside-1"
-        assert mmax <= lmax, "Error in BeamMap.to_blm: mmax < lmax"
-        assert self.map.shape[0] <=3 , "Error in BeamMap.to_blm: map has more than 3 Stokes parameters"
+        assert lmax <= 3*self.nside-1, "Error in BeamMap.to_alm: lmax < 3*nside-1"
+        assert mmax <= lmax, "Error in BeamMap.to_alm: mmax < lmax"
+        assert self.map.shape[0] <=3 , "Error in BeamMap.to_alm: map has more than 3 Stokes parameters"
 
-        blm = hp.map2alm(self.map, lmax=lmax, mmax=mmax)
-        return blm
+        alm = hp.map2alm(self.map, lmax=lmax, mmax=mmax)
+        return alm
 
 
 def _get_beam_polar_value(beam:BeamPolar, theta, phi, s):
     """Calculate the value of the beam at a given theta, phi, and Stokes parameter.
+    The value is bi-liner interpolated from `BeamPolar` by a given theta and phi.
 
     Args:
         beam (BeamPolar): The polar beam object.
@@ -653,7 +652,7 @@ def _get_beam_polar_value(beam:BeamPolar, theta, phi, s):
             (1.0 - wth) * (wph * beam.stokes[s, iph1, ith2] + (1.0 - wph) * beam.stokes[s, iph2, ith2])
     return value
 
-def grasp2blm(
+def grasp2alm(
     filepath,
     nside,
     lmax,
@@ -674,7 +673,7 @@ def grasp2blm(
             component. Defaults to 'x'.
 
     Returns:
-        blm (numpy.ndarray): Spherical harmonic coefficients of the beam map.
+        alm (numpy.ndarray): Spherical harmonic coefficients of the beam map.
 
     Raises:
         ValueError: If the file format is unknown.
@@ -685,11 +684,11 @@ def grasp2blm(
     elif filepath.endswith(".cut"):
         beam = BeamCut(filepath)
     else:
-        raise ValueError("Error in grasp2blm: unknown file format")
+        raise ValueError("Error in grasp2alm: unknown file format")
     beam_polar = beam.to_polar(copol_axis)
     beam_map = beam_polar.to_map(
         nside,
         outOftheta_val=outOftheta_val
         )
-    blm = beam_map.to_blm(lmax, mmax)
-    return blm
+    alm = beam_map.to_alm(lmax, mmax)
+    return alm

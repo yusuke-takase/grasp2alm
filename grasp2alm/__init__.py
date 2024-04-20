@@ -1,9 +1,9 @@
-from .levels_beam import (
+from .grasp2alm import (
     BeamGrid,
     BeamCut,
     BeamPolar,
     BeamMap,
-    grasp2blm,
+    grasp2alm,
 )
 
 from .version import (
@@ -18,10 +18,10 @@ __all__ = [
     "__author__",
     "__original_url__",
     "__version__",
-    # levels_beam.py
+    # grasp2alm.py
     "BeamGrid",
     "BeamCut",
     "BeamPolar",
     "BeamMap",
-    "grasp2blm",
+    "grasp2alm",
 ]
