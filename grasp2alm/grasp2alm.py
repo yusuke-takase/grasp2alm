@@ -614,7 +614,7 @@ class BeamMap:
         return alm
 
 
-def _get_beam_polar_value(beam:BeamPolar, theta, phi, s):
+def _get_beam_polar_value(beam:BeamPolar, theta:np.ndarray, phi:np.ndarray, s:int):
     """Calculate the value of the beam at a given theta, phi, and Stokes parameter.
     The value is bi-liner interpolated from `BeamPolar` by a given theta and phi.
 
