@@ -1,2 +1,4 @@
-/grasp2alm.egg-info
-/grasp2alm/__pycache__
+grasp2alm.egg-info/
+grasp2alm/__pycache__/
+dist/
+build/
