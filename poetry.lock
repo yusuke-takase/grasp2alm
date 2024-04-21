@@ -1,54 +1,59 @@
 [[package]]
 name = "astropy"
-version = "6.0.1"
+version = "5.2.2"
 description = "Astronomy and astrophysics core library"
-category = "main"
-optional = false
-python-versions = ">=3.9"
-
-[package.dependencies]
-astropy-iers-data = ">=0.2024.2.26.0.28.55"
-numpy = ">=1.22,<2"
-packaging = ">=19.0"
-pyerfa = ">=2.0.1.1"
-PyYAML = ">=3.13"
-
-[package.extras]
-all = ["astropy", "certifi", "dask", "h5py", "pyarrow (>=5.0.0)", "beautifulsoup4", "html5lib", "bleach", "pandas", "sortedcontainers", "pytz", "jplephem", "mpmath", "asdf-astropy (>=0.3)", "bottleneck", "ipython (>=4.2)", "pytest (>=7.0)", "typing-extensions (>=3.10.0.1)", "fsspec[http] (>=2023.4.0)", "s3fs (>=2023.4.0)", "pre-commit"]
-docs = ["astropy", "sphinx", "sphinx-astropy[confv2] (>=1.9.1)", "pytest (>=7.0)", "sphinx-changelog (>=1.2.0)", "sphinx-design", "Jinja2 (>=3.1.3)", "tomli"]
-recommended = ["scipy (>=1.5)", "matplotlib (>=3.3,!=3.4.0,!=3.5.2)"]
-test = ["pytest (>=7.0)", "pytest-doctestplus (>=0.12)", "pytest-astropy-header (>=0.2.1)", "pytest-astropy (>=0.10)", "pytest-xdist", "threadpoolctl"]
-test-all = ["astropy", "objgraph", "ipython (>=4.2)", "coverage", "skyfield (>=1.20)", "sgp4 (>=2.3)"]
-
-[[package]]
-name = "astropy-iers-data"
-version = "0.2024.4.15.2.45.49"
-description = "IERS Earth Rotation and Leap Second tables for the astropy core package"
 category = "main"
 optional = false
 python-versions = ">=3.8"
 
+[package.dependencies]
+numpy = ">=1.20"
+packaging = ">=19.0"
+pyerfa = ">=2.0"
+PyYAML = ">=3.13"
+
 [package.extras]
-docs = ["pytest"]
-test = ["pytest", "pytest-remotedata", "hypothesis"]
+all = ["scipy (>=1.5)", "matplotlib (>=3.1,!=3.4.0,!=3.5.2)", "certifi", "dask", "h5py", "pyarrow (>=5.0.0)", "beautifulsoup4", "html5lib", "bleach", "pandas", "sortedcontainers", "pytz", "jplephem", "mpmath", "asdf (>=2.10.0)", "bottleneck", "ipython (>=4.2)", "pytest (>=7.0)", "typing-extensions (>=3.10.0.1)", "fsspec[http] (>=2022.8.2)", "s3fs (>=2022.8.2)"]
+docs = ["sphinx", "sphinx-astropy (>=1.6)", "pytest (>=7.0)", "scipy (>=1.3)", "matplotlib (>=3.1,!=3.4.0,!=3.5.2)", "sphinx-changelog (>=1.2.0)", "Jinja2 (>=3.0)"]
+recommended = ["scipy (>=1.5)", "matplotlib (>=3.1,!=3.4.0,!=3.5.2)"]
+test = ["pytest (>=7.0)", "pytest-doctestplus (>=0.12)", "pytest-astropy-header (>=0.2.1)", "pytest-astropy (>=0.10)", "pytest-xdist"]
+test_all = ["pytest (>=7.0)", "pytest-doctestplus (>=0.12)", "pytest-astropy-header (>=0.2.1)", "pytest-astropy (>=0.10)", "pytest-xdist", "objgraph", "ipython (>=4.2)", "coverage", "skyfield (>=1.20)", "sgp4 (>=2.3)"]
 
 [[package]]
 name = "contourpy"
-version = "1.2.1"
+version = "1.1.0"
 description = "Python library for calculating contours of 2D quadrilateral grids"
 category = "main"
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.8"
 
 [package.dependencies]
-numpy = ">=1.20"
+numpy = ">=1.16"
+
+[package.extras]
+docs = ["furo", "sphinx-copybutton"]
+bokeh = ["bokeh", "selenium"]
+mypy = ["contourpy", "docutils-stubs", "mypy (==1.2.0)", "types-pillow"]
+test = ["contourpy", "matplotlib", "pillow"]
+test-no-images = ["pytest", "pytest-cov", "wurlitzer"]
+
+[[package]]
+name = "contourpy"
+version = "1.1.1"
+description = "Python library for calculating contours of 2D quadrilateral grids"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+numpy = {version = ">=1.16,<2.0", markers = "python_version <= \"3.11\""}
 
 [package.extras]
 docs = ["furo", "sphinx (>=7.2)", "sphinx-copybutton"]
 bokeh = ["bokeh", "selenium"]
-mypy = ["contourpy", "docutils-stubs", "mypy (==1.8.0)", "types-pillow"]
+mypy = ["contourpy", "docutils-stubs", "mypy (==1.4.1)", "types-pillow"]
 test = ["contourpy", "matplotlib", "pillow"]
-test-no-images = ["pytest", "pytest-cov", "pytest-xdist", "wurlitzer"]
+test-no-images = ["pytest", "pytest-cov", "wurlitzer"]
 
 [[package]]
 name = "cycler"
@@ -86,16 +91,16 @@ woff = ["zopfli (>=0.1.4)", "brotlicffi (>=0.8.0)", "brotli (>=1.0.1)"]
 
 [[package]]
 name = "healpy"
-version = "1.16.6"
+version = "1.16.5"
 description = "Healpix tools package for Python"
 category = "main"
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.8"
 
 [package.dependencies]
 astropy = "*"
 matplotlib = "*"
-numpy = ">=1.19"
+numpy = ">=1.13"
 scipy = "*"
 
 [package.extras]
@@ -126,31 +131,31 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "matplotlib"
-version = "3.8.4"
+version = "3.7.5"
 description = "Python plotting package"
 category = "main"
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.8"
 
 [package.dependencies]
 contourpy = ">=1.0.1"
 cycler = ">=0.10"
 fonttools = ">=4.22.0"
 importlib-resources = {version = ">=3.2.0", markers = "python_version < \"3.10\""}
-kiwisolver = ">=1.3.1"
-numpy = ">=1.21"
+kiwisolver = ">=1.0.1"
+numpy = ">=1.20,<2"
 packaging = ">=20.0"
-pillow = ">=8"
+pillow = ">=6.2.0"
 pyparsing = ">=2.3.1"
 python-dateutil = ">=2.7"
 
 [[package]]
 name = "numpy"
-version = "1.26.4"
+version = "1.24.4"
 description = "Fundamental package for array computing in Python"
 category = "main"
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.8"
 
 [[package]]
 name = "packaging"
@@ -178,14 +183,14 @@ xmp = ["defusedxml"]
 
 [[package]]
 name = "pyerfa"
-version = "2.0.1.4"
+version = "2.0.0.3"
 description = "Python bindings for ERFA"
 category = "main"
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.7"
 
 [package.dependencies]
-numpy = ">=1.19"
+numpy = ">=1.17"
 
 [package.extras]
 docs = ["sphinx-astropy (>=1.3)"]
@@ -223,19 +228,19 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "scipy"
-version = "1.13.0"
+version = "1.9.3"
 description = "Fundamental algorithms for scientific computing in Python"
 category = "main"
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.8"
 
 [package.dependencies]
-numpy = ">=1.22.4,<2.3"
+numpy = ">=1.18.5,<1.26.0"
 
 [package.extras]
-test = ["pytest", "pytest-cov", "pytest-timeout", "pytest-xdist", "asv", "mpmath", "gmpy2", "threadpoolctl", "scikit-umfpack", "pooch", "hypothesis (>=6.30)", "array-api-strict"]
-doc = ["sphinx (>=5.0.0)", "pydata-sphinx-theme (>=0.15.2)", "sphinx-design (>=0.4.0)", "matplotlib (>=3.5)", "numpydoc", "jupytext", "myst-nb", "pooch", "jupyterlite-sphinx (>=0.12.0)", "jupyterlite-pyodide-kernel"]
-dev = ["mypy", "typing-extensions", "types-psutil", "pycodestyle", "ruff", "cython-lint (>=0.12.2)", "rich-click", "doit (>=0.36.0)", "pydevtool"]
+test = ["pytest", "pytest-cov", "pytest-xdist", "asv", "mpmath", "gmpy2", "threadpoolctl", "scikit-umfpack"]
+doc = ["sphinx (!=4.1.0)", "pydata-sphinx-theme (==0.9.0)", "sphinx-panels (>=0.5.2)", "matplotlib (>2)", "numpydoc", "sphinx-tabs"]
+dev = ["mypy", "typing-extensions", "pycodestyle", "flake8"]
 
 [[package]]
 name = "six"
@@ -259,12 +264,11 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-ena
 
 [metadata]
 lock-version = "1.1"
-python-versions = ">=3.9,<3.13"
-content-hash = "6332480a2aa164ed62aae8a39eafa41c6240726cb5af73f39b9aa8de7f199ad4"
+python-versions = ">=3.8,<3.13"
+content-hash = "bc407349ba9e08a265b720a7545f9df269ccb08fc3335ffbd174226d6bd9051f"
 
 [metadata.files]
 astropy = []
-astropy-iers-data = []
 contourpy = []
 cycler = []
 fonttools = []
