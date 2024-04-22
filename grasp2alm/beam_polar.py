@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import copy
 import healpy as hp
 from .beam_map import BeamMap
+from scipy.interpolate import RegularGridInterpolator
+from typing import Type
 
 @dataclass
 class BeamPolar:
@@ -45,15 +47,14 @@ class BeamPolar:
         self.stokes = np.zeros((4, nphi, ntheta), dtype=float)
         self.filename = filename
 
-    def stokes_rotate(self):
+    def stokes_rotate(self) -> 'BeamPolar':
         """Rotates Q and U Stokes parameters from the co-cross basis to the polar basis.
 
         The Q and U Stokes parameters are usually represented in the
         co-cross basis, where the co-polar direction is aligned with the
         y-axis (consistent with Ludwig 3 convention).  For the purposes of
         extracting the spherical harmonic coefficients, it is more useful
-        to represent them in the polar basis.  This routine should only be
-        called just before the spherical transform routines.
+        to represent them in the polar basis.
 
         Returns:
             BeamPolar: A new instance of BeamPolar with the rotated polarization beam.
@@ -93,16 +94,45 @@ class BeamPolar:
 
         """
         npix = hp.nside2npix(nside)
-        beampolar = self.stokes_rotate()
         theta, phi = hp.pix2ang(nside, np.arange(npix))
+        beam_polar = self.stokes_rotate()
+
 
         theta = theta[theta <= self.theta_rad_max]
         phi = phi[:len(theta)]
 
         beam_map = np.full((nstokes, npix), outOftheta_val, dtype=float)
         for s in range(nstokes):
-            beam_map[s, :len(theta)] = _get_beam_polar_value(beampolar, theta, phi, s)
+            beam_map[s, :len(theta)] = beam_polar._get_interp_val(theta, phi, s)
         return BeamMap(beam_map)
+
+    def _get_interp_val(self, theta:np.ndarray, phi:np.ndarray, s:int):
+        """Calculate the value of the beam at a given theta, phi, and Stokes parameter.
+        The value is bi-linear interpolated from `BeamPolar` by a given theta and phi.
+
+        Args:
+            beam (BeamPolar): The polar beam object.
+            theta (float or array-like): The theta value(s) at which to evaluate the beam.
+            phi (float or array-like): The phi value(s) at which to evaluate the beam.
+            s (int): The Stokes parameter index.
+
+        Returns:
+            value (float or array-like): The value(s) of the beam at the given theta, phi, and Stokes parameter.
+
+        """
+        # Create a grid of theta and phi values
+        theta_grid = np.linspace(self.theta_rad_min, self.theta_rad_max, self.ntheta)
+        phi_grid = np.linspace(0, 2.0 * np.pi, self.nphi+1)
+        stokes_extended = np.concatenate([self.stokes[s], self.stokes[s][:1,:]], axis=0)
+
+        # Create a 2D interpolator for the beam stokes values
+        interpolator = RegularGridInterpolator((phi_grid, theta_grid), stokes_extended, bounds_error=False, fill_value=None)
+
+        # Use the interpolator to get the beam values at the given theta and phi
+        value = interpolator(np.array([phi, theta]).T)
+
+        return value
+
 
     def plot(self, stokes="I", color_resol=20, figsize=6, cmap="jet", return_fields=False):
         """Plot the beam.
@@ -157,8 +187,7 @@ class BeamPolar:
             return (x, y, self.stokes[s])
 
 
-
-def _get_beam_polar_value(beam:BeamPolar, theta:np.ndarray, phi:np.ndarray, s:int):
+def _get_interp_val_from_polar_original(beam:BeamPolar, theta:np.ndarray, phi:np.ndarray, s:int):
     """Calculate the value of the beam at a given theta, phi, and Stokes parameter.
     The value is bi-liner interpolated from `BeamPolar` by a given theta and phi.
 

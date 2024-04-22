@@ -21,24 +21,6 @@ test_all = ["pytest (>=7.0)", "pytest-doctestplus (>=0.12)", "pytest-astropy-hea
 
 [[package]]
 name = "contourpy"
-version = "1.1.0"
-description = "Python library for calculating contours of 2D quadrilateral grids"
-category = "main"
-optional = false
-python-versions = ">=3.8"
-
-[package.dependencies]
-numpy = ">=1.16"
-
-[package.extras]
-docs = ["furo", "sphinx-copybutton"]
-bokeh = ["bokeh", "selenium"]
-mypy = ["contourpy", "docutils-stubs", "mypy (==1.2.0)", "types-pillow"]
-test = ["contourpy", "matplotlib", "pillow"]
-test-no-images = ["pytest", "pytest-cov", "wurlitzer"]
-
-[[package]]
-name = "contourpy"
 version = "1.1.1"
 description = "Python library for calculating contours of 2D quadrilateral grids"
 category = "main"
@@ -54,6 +36,24 @@ bokeh = ["bokeh", "selenium"]
 mypy = ["contourpy", "docutils-stubs", "mypy (==1.4.1)", "types-pillow"]
 test = ["contourpy", "matplotlib", "pillow"]
 test-no-images = ["pytest", "pytest-cov", "wurlitzer"]
+
+[[package]]
+name = "contourpy"
+version = "1.2.1"
+description = "Python library for calculating contours of 2D quadrilateral grids"
+category = "main"
+optional = false
+python-versions = ">=3.9"
+
+[package.dependencies]
+numpy = ">=1.20"
+
+[package.extras]
+docs = ["furo", "sphinx (>=7.2)", "sphinx-copybutton"]
+bokeh = ["bokeh", "selenium"]
+mypy = ["contourpy", "docutils-stubs", "mypy (==1.8.0)", "types-pillow"]
+test = ["contourpy", "matplotlib", "pillow"]
+test-no-images = ["pytest", "pytest-cov", "pytest-xdist", "wurlitzer"]
 
 [[package]]
 name = "cycler"
@@ -228,19 +228,19 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "scipy"
-version = "1.9.3"
+version = "1.13.0"
 description = "Fundamental algorithms for scientific computing in Python"
 category = "main"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 
 [package.dependencies]
-numpy = ">=1.18.5,<1.26.0"
+numpy = ">=1.22.4,<2.3"
 
 [package.extras]
-test = ["pytest", "pytest-cov", "pytest-xdist", "asv", "mpmath", "gmpy2", "threadpoolctl", "scikit-umfpack"]
-doc = ["sphinx (!=4.1.0)", "pydata-sphinx-theme (==0.9.0)", "sphinx-panels (>=0.5.2)", "matplotlib (>2)", "numpydoc", "sphinx-tabs"]
-dev = ["mypy", "typing-extensions", "pycodestyle", "flake8"]
+test = ["pytest", "pytest-cov", "pytest-timeout", "pytest-xdist", "asv", "mpmath", "gmpy2", "threadpoolctl", "scikit-umfpack", "pooch", "hypothesis (>=6.30)", "array-api-strict"]
+doc = ["sphinx (>=5.0.0)", "pydata-sphinx-theme (>=0.15.2)", "sphinx-design (>=0.4.0)", "matplotlib (>=3.5)", "numpydoc", "jupytext", "myst-nb", "pooch", "jupyterlite-sphinx (>=0.12.0)", "jupyterlite-pyodide-kernel"]
+dev = ["mypy", "typing-extensions", "types-psutil", "pycodestyle", "ruff", "cython-lint (>=0.12.2)", "rich-click", "doit (>=0.36.0)", "pydevtool"]
 
 [[package]]
 name = "six"
@@ -264,8 +264,8 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-ena
 
 [metadata]
 lock-version = "1.1"
-python-versions = ">=3.8,<3.13"
-content-hash = "bc407349ba9e08a265b720a7545f9df269ccb08fc3335ffbd174226d6bd9051f"
+python-versions = ">=3.9,<3.13"
+content-hash = "f8a567f8b9faa7c148e0652cbd800c67390b5198d03b4ebff7b1d8993a77ccf8"
 
 [metadata.files]
 astropy = []
