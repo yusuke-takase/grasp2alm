@@ -7,6 +7,7 @@ def grasp2alm(
     filepath,
     nside,
     outOftheta_val=hp.UNSEEN,
+    interp_method="linear",
     copol_axis='x',
     lmax=None,
     mmax=None,
@@ -26,6 +27,8 @@ def grasp2alm(
         mmax (int): The desired mmax parameters for the analysis.
         outOftheta_val (float): Value to assign to pixels outside
             the valid theta range.
+        interp_method (str): Interpolation method to use. Default is 'linear'.
+                Supported are 'linear', 'nearest', 'slinear', 'cubic', 'quintic' and 'pchip'.
         copol_axis (str, optional): Axis of the co-polarization
             component. Defaults to 'x'.
         iter : int, scalar, optional
@@ -62,7 +65,8 @@ def grasp2alm(
     beam_polar = beam.to_polar(copol_axis)
     beam_map = beam_polar.to_map(
         nside,
-        outOftheta_val=outOftheta_val
+        outOftheta_val=outOftheta_val,
+        interp_method=interp_method
         )
     alm = beam_map.to_alm(
         lmax=lmax,
@@ -82,6 +86,7 @@ def grasp2alm_lsq(
     lmax,
     mmax,
     outOftheta_val=hp.UNSEEN,
+    interp_method="linear",
     copol_axis='x',
     pol=True,
     tol=1e-10,
@@ -96,6 +101,8 @@ def grasp2alm_lsq(
         mmax (int): The desired mmax parameters for the analysis.
         outOftheta_val (float): Value to assign to pixels outside
             the valid theta range.
+        interp_method (str): Interpolation method to use. Default is 'linear'.
+                Supported are 'linear', 'nearest', 'slinear', 'cubic', 'quintic' and 'pchip'.
         copol_axis (str, optional): Axis of the co-polarization
             component. Defaults to 'x'.
         pol : bool, optional
@@ -126,7 +133,8 @@ def grasp2alm_lsq(
     beam_polar = beam.to_polar(copol_axis)
     beam_map = beam_polar.to_map(
         nside,
-        outOftheta_val=outOftheta_val
+        outOftheta_val=outOftheta_val,
+        interp_method=interp_method
         )
     alm = beam_map.to_alm_lsq(
         lmax,

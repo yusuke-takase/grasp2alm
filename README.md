@@ -58,7 +58,7 @@ Internally, this package uses the 'Ludwig 3' definition for thepolarisation basi
   to represent them in the polar basis. Unlike the [original Fortran
   method](https://github.com/zonca/planck-levelS/blob/master/Beam/beam_polar.f90#L260), this function operates on a deepcopy of the input `BeamPolar`,
   so it does not perform destructive actions.
-- `to_map(nside, nstokes=3, outOftheta_val=0.0)`: Convert the beam to a map.
+- `to_map(nside, nstokes=3, outOftheta_val=0.0, interp_method="linear")`: Convert the beam to a map. Supported interp_methods are 'linear', 'nearest', 'slinear', 'cubic', 'quintic' and 'pchip'.
 - `plot(stokes="I", color_resol=20, figsize=6, cmap="jet", return_fields=False)`: Plots the beam.
 
 ---
@@ -86,6 +86,7 @@ Convert a GRASP file to a spherical harmonic coefficients of `BeamMap` by using 
 - `lmax` (int): The desired `lmax` parameters for the analysis.
 - `mmax` (int): The desired `mmax` parameters for the analysis.
 - `outOftheta_val` (float): Value to assign to pixels outside the valid `theta` range.
+- `interp_method` (str): Interpolation method to use. Default is 'linear'. Supported are 'linear', 'nearest', 'slinear', 'cubic', 'quintic' and 'pchip'.
 - `copol_axis` (str, optional): Axis of the co-polarization component. Defaults to 'x'.
 - `iter` (int, scalar, optional): Number of iterations (default: 3).
 - `pol` (bool, optional): If True, assumes input maps are TQU. Output will be TEB alm's.
@@ -110,6 +111,7 @@ Convert a GRASP file to a spherical harmonic coefficients of `BeamMap` by using 
 - `lmax` (int): The desired `lmax` parameters for the analysis.
 - `mmax` (int): The desired `mmax` parameters for the analysis.
 - `outOftheta_val` (float): Value to assign to pixels outside the valid `theta` range.
+- `interp_method` (str): Interpolation method to use. Default is 'linear'. Supported are 'linear', 'nearest', 'slinear', 'cubic', 'quintic' and 'pchip'.
 - `copol_axis` (str, optional): Axis of the co-polarization component. Defaults to 'x'.
 - `pol` (bool, optional): If True, assumes input maps are TQU. Output will be TEB alm's.
   (input must be 1 or 3 maps)

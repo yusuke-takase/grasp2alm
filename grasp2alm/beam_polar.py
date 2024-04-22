@@ -22,11 +22,11 @@ class BeamPolar:
         ntheta (int): Number of theta values.
         theta_rad_min (float): Minimum theta value in radians.
         theta_rad_max (float): Maximum theta value in radians.
-        stokes (ndarray): Array of shape (4, nphi, ntheta) representing the Stokes parameters.
+        stokes (ndarray): Array of shape (4, nphi, ntheta) representing the Stokes parameters (I,Q,U,V).
         filename (str): Name of the file.
 
     Methods:
-        stokes_rotate(): Rotate the polarization beam.
+        stokes_rotate(): Rotate the stokes beam.
         to_map(nside, nstokes=3, outOftheta_val=0.0): Convert the beam to a map.
         plot(stokes="I", color_resol=20, figsize=6, cmap="jet", return_fields=False): Plot the beam.
 
@@ -47,17 +47,17 @@ class BeamPolar:
         self.stokes = np.zeros((4, nphi, ntheta), dtype=float)
         self.filename = filename
 
-    def stokes_rotate(self) -> 'BeamPolar':
+    def stokes_rotate(self):
         """Rotates Q and U Stokes parameters from the co-cross basis to the polar basis.
-
         The Q and U Stokes parameters are usually represented in the
         co-cross basis, where the co-polar direction is aligned with the
-        y-axis (consistent with Ludwig 3 convention).  For the purposes of
+        y-axis (consistent with Ludwig 3 convention). For the purposes of
         extracting the spherical harmonic coefficients, it is more useful
-        to represent them in the polar basis.
+        to represent them in the polar basis. Unlike the original LevelS's method, this function operates on a deepcopy of the input `BeamPolar`,
+        so it does not perform destructive actions.
 
         Returns:
-            BeamPolar: A new instance of BeamPolar with the rotated polarization beam.
+            BeamPolar: A new instance of BeamPolar with the rotated stokes beam.
 
         """
         beam_copy = copy.deepcopy(self)
@@ -81,13 +81,15 @@ class BeamPolar:
         beam_copy.stokes[2, :, valid_theta_indices] = -q * sin2phi[None, :] + u * cos2phi[None, :]
         return beam_copy
 
-    def to_map(self, nside, nstokes=3, outOftheta_val=hp.UNSEEN):
+    def to_map(self, nside, nstokes=3, outOftheta_val=hp.UNSEEN, interp_method="linear"):
         """Convert the BeamPolar to a BeamMap.
 
         Args:
             nside (int): The nside parameter for the HEALPix map.
             nstokes (int): Number of Stokes parameters.
             outOftheta_val (float): Value to fill outside the valid theta range.
+            interp_method (str): Interpolation method to use. Default is 'linear'.
+                Supported are 'linear', 'nearest', 'slinear', 'cubic', 'quintic' and 'pchip'.
 
         Returns:
             BeamMap: A new instance of BeamMap representing the beam map.
@@ -103,30 +105,36 @@ class BeamPolar:
 
         beam_map = np.full((nstokes, npix), outOftheta_val, dtype=float)
         for s in range(nstokes):
-            beam_map[s, :len(theta)] = beam_polar._get_interp_val(theta, phi, s)
+            beam_map[s, :len(theta)] = beam_polar._get_interp_val(theta, phi, s, interp_method)
         return BeamMap(beam_map)
 
-    def _get_interp_val(self, theta:np.ndarray, phi:np.ndarray, s:int):
+    def _get_interp_val(self, theta:np.ndarray, phi:np.ndarray, s:int, interp_method="linear"):
         """Calculate the value of the beam at a given theta, phi, and Stokes parameter.
-        The value is bi-linear interpolated from `BeamPolar` by a given theta and phi.
+        The value is interpolated from `BeamPolar` by a given theta and phi.
 
         Args:
-            beam (BeamPolar): The polar beam object.
             theta (float or array-like): The theta value(s) at which to evaluate the beam.
             phi (float or array-like): The phi value(s) at which to evaluate the beam.
             s (int): The Stokes parameter index.
-
+            interp_method (str): Interpolation method to use. Default is 'linear'.
+                Supported are 'linear', 'nearest', 'slinear', 'cubic', 'quintic' and 'pchip'.
         Returns:
             value (float or array-like): The value(s) of the beam at the given theta, phi, and Stokes parameter.
 
         """
         # Create a grid of theta and phi values
         theta_grid = np.linspace(self.theta_rad_min, self.theta_rad_max, self.ntheta)
-        phi_grid = np.linspace(0, 2.0 * np.pi, self.nphi+1)
+        # To make a periodicity in phi, we add the first phi value to the end
+        phi_grid = np.linspace(0.0, 2.0 * np.pi, self.nphi + 1)
+        # To make a periodicity in stokes, we add the first stokes value to the end
         stokes_extended = np.concatenate([self.stokes[s], self.stokes[s][:1,:]], axis=0)
 
         # Create a 2D interpolator for the beam stokes values
-        interpolator = RegularGridInterpolator((phi_grid, theta_grid), stokes_extended, bounds_error=False, fill_value=None)
+        interpolator = RegularGridInterpolator(
+            (phi_grid, theta_grid),
+            stokes_extended,
+            method=interp_method
+            )
 
         # Use the interpolator to get the beam values at the given theta and phi
         value = interpolator(np.array([phi, theta]).T)
@@ -189,7 +197,7 @@ class BeamPolar:
 
 def _get_interp_val_from_polar_original(beam:BeamPolar, theta:np.ndarray, phi:np.ndarray, s:int):
     """Calculate the value of the beam at a given theta, phi, and Stokes parameter.
-    The value is bi-liner interpolated from `BeamPolar` by a given theta and phi.
+    The value is interpolated from `BeamPolar` by a given theta and phi.
 
     Args:
         beam (BeamPolar): The polar beam object.
