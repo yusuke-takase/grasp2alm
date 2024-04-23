@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 import unittest
 import grasp2alm as gp
 import numpy as np

@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 import numpy as np
 import healpy as hp
 from .beam_grid import BeamGrid

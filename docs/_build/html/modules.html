@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>grasp2alm &#8212; grasp2alm 0.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=01f34227"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="grasp2alm package" href="grasp2alm.html" />
+    <link rel="prev" title="Welcome to grasp2alm’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="grasp2alm">
+<h1>grasp2alm<a class="headerlink" href="#grasp2alm" title="Link to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="grasp2alm.html">grasp2alm package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="grasp2alm.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grasp2alm.html#module-grasp2alm.beam2alm">grasp2alm.beam2alm module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam2alm.grasp2alm"><code class="docutils literal notranslate"><span class="pre">grasp2alm()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam2alm.grasp2alm_lsq"><code class="docutils literal notranslate"><span class="pre">grasp2alm_lsq()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="grasp2alm.html#module-grasp2alm.beam_cut">grasp2alm.beam_cut module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_cut.BeamCut"><code class="docutils literal notranslate"><span class="pre">BeamCut</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_cut.BeamCut.header"><code class="docutils literal notranslate"><span class="pre">BeamCut.header</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_cut.BeamCut.vini"><code class="docutils literal notranslate"><span class="pre">BeamCut.vini</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_cut.BeamCut.vinc"><code class="docutils literal notranslate"><span class="pre">BeamCut.vinc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_cut.BeamCut.vnum"><code class="docutils literal notranslate"><span class="pre">BeamCut.vnum</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_cut.BeamCut.c"><code class="docutils literal notranslate"><span class="pre">BeamCut.c</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_cut.BeamCut.icomp"><code class="docutils literal notranslate"><span class="pre">BeamCut.icomp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_cut.BeamCut.icut"><code class="docutils literal notranslate"><span class="pre">BeamCut.icut</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_cut.BeamCut.ncomp"><code class="docutils literal notranslate"><span class="pre">BeamCut.ncomp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_cut.BeamCut.ncut"><code class="docutils literal notranslate"><span class="pre">BeamCut.ncut</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_cut.BeamCut.amp"><code class="docutils literal notranslate"><span class="pre">BeamCut.amp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_cut.BeamCut.__init__"><code class="docutils literal notranslate"><span class="pre">BeamCut.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_cut.BeamCut.__post_init__"><code class="docutils literal notranslate"><span class="pre">BeamCut.__post_init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_cut.BeamCut.to_polar"><code class="docutils literal notranslate"><span class="pre">BeamCut.to_polar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id0"><code class="docutils literal notranslate"><span class="pre">BeamCut.amp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id1"><code class="docutils literal notranslate"><span class="pre">BeamCut.c</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id2"><code class="docutils literal notranslate"><span class="pre">BeamCut.header</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id3"><code class="docutils literal notranslate"><span class="pre">BeamCut.icomp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id4"><code class="docutils literal notranslate"><span class="pre">BeamCut.icut</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id5"><code class="docutils literal notranslate"><span class="pre">BeamCut.ncomp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id6"><code class="docutils literal notranslate"><span class="pre">BeamCut.ncut</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_cut.BeamCut.plot"><code class="docutils literal notranslate"><span class="pre">BeamCut.plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id7"><code class="docutils literal notranslate"><span class="pre">BeamCut.to_polar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id8"><code class="docutils literal notranslate"><span class="pre">BeamCut.vinc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id9"><code class="docutils literal notranslate"><span class="pre">BeamCut.vini</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id10"><code class="docutils literal notranslate"><span class="pre">BeamCut.vnum</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="grasp2alm.html#module-grasp2alm.beam_grid">grasp2alm.beam_grid module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid"><code class="docutils literal notranslate"><span class="pre">BeamGrid</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid.header"><code class="docutils literal notranslate"><span class="pre">BeamGrid.header</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid.ktype"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ktype</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid.nset"><code class="docutils literal notranslate"><span class="pre">BeamGrid.nset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid.klimit"><code class="docutils literal notranslate"><span class="pre">BeamGrid.klimit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid.icomp"><code class="docutils literal notranslate"><span class="pre">BeamGrid.icomp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid.ncomp"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ncomp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid.igrid"><code class="docutils literal notranslate"><span class="pre">BeamGrid.igrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid.ix"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ix</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid.iy"><code class="docutils literal notranslate"><span class="pre">BeamGrid.iy</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid.xs"><code class="docutils literal notranslate"><span class="pre">BeamGrid.xs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid.ys"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ys</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid.xe"><code class="docutils literal notranslate"><span class="pre">BeamGrid.xe</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid.ye"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ye</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid.nx"><code class="docutils literal notranslate"><span class="pre">BeamGrid.nx</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid.ny"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ny</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid.freq"><code class="docutils literal notranslate"><span class="pre">BeamGrid.freq</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid.frequnit"><code class="docutils literal notranslate"><span class="pre">BeamGrid.frequnit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid.amp"><code class="docutils literal notranslate"><span class="pre">BeamGrid.amp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid.__init__"><code class="docutils literal notranslate"><span class="pre">BeamGrid.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid.__post_init__"><code class="docutils literal notranslate"><span class="pre">BeamGrid.__post_init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid.to_polar"><code class="docutils literal notranslate"><span class="pre">BeamGrid.to_polar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id11"><code class="docutils literal notranslate"><span class="pre">BeamGrid.amp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id12"><code class="docutils literal notranslate"><span class="pre">BeamGrid.freq</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id13"><code class="docutils literal notranslate"><span class="pre">BeamGrid.frequnit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id14"><code class="docutils literal notranslate"><span class="pre">BeamGrid.header</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id15"><code class="docutils literal notranslate"><span class="pre">BeamGrid.icomp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id16"><code class="docutils literal notranslate"><span class="pre">BeamGrid.igrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id17"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ix</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id18"><code class="docutils literal notranslate"><span class="pre">BeamGrid.iy</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id19"><code class="docutils literal notranslate"><span class="pre">BeamGrid.klimit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id20"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ktype</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id21"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ncomp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id22"><code class="docutils literal notranslate"><span class="pre">BeamGrid.nset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id23"><code class="docutils literal notranslate"><span class="pre">BeamGrid.nx</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id24"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ny</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_grid.BeamGrid.plot"><code class="docutils literal notranslate"><span class="pre">BeamGrid.plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id25"><code class="docutils literal notranslate"><span class="pre">BeamGrid.to_polar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id26"><code class="docutils literal notranslate"><span class="pre">BeamGrid.xe</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id27"><code class="docutils literal notranslate"><span class="pre">BeamGrid.xs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id28"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ye</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id29"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ys</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="grasp2alm.html#module-grasp2alm.beam_map">grasp2alm.beam_map module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_map.BeamMap"><code class="docutils literal notranslate"><span class="pre">BeamMap</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_map.BeamMap.nside"><code class="docutils literal notranslate"><span class="pre">BeamMap.nside</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_map.BeamMap.map"><code class="docutils literal notranslate"><span class="pre">BeamMap.map</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_map.BeamMap.to_alm"><code class="docutils literal notranslate"><span class="pre">BeamMap.to_alm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id30"><code class="docutils literal notranslate"><span class="pre">BeamMap.to_alm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_map.BeamMap.to_alm_lsq"><code class="docutils literal notranslate"><span class="pre">BeamMap.to_alm_lsq()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="grasp2alm.html#module-grasp2alm.beam_polar">grasp2alm.beam_polar module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_polar.BeamPolar"><code class="docutils literal notranslate"><span class="pre">BeamPolar</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_polar.BeamPolar.nphi"><code class="docutils literal notranslate"><span class="pre">BeamPolar.nphi</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_polar.BeamPolar.ntheta"><code class="docutils literal notranslate"><span class="pre">BeamPolar.ntheta</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_polar.BeamPolar.theta_rad_min"><code class="docutils literal notranslate"><span class="pre">BeamPolar.theta_rad_min</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_polar.BeamPolar.theta_rad_max"><code class="docutils literal notranslate"><span class="pre">BeamPolar.theta_rad_max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_polar.BeamPolar.stokes"><code class="docutils literal notranslate"><span class="pre">BeamPolar.stokes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_polar.BeamPolar.filename"><code class="docutils literal notranslate"><span class="pre">BeamPolar.filename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_polar.BeamPolar.stokes_rotate"><code class="docutils literal notranslate"><span class="pre">BeamPolar.stokes_rotate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_polar.BeamPolar.to_map"><code class="docutils literal notranslate"><span class="pre">BeamPolar.to_map()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.beam_polar.BeamPolar.plot"><code class="docutils literal notranslate"><span class="pre">BeamPolar.plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id31"><code class="docutils literal notranslate"><span class="pre">BeamPolar.plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id32"><code class="docutils literal notranslate"><span class="pre">BeamPolar.stokes_rotate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id33"><code class="docutils literal notranslate"><span class="pre">BeamPolar.to_map()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="grasp2alm.html#module-grasp2alm.version">grasp2alm.version module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grasp2alm.html#module-grasp2alm">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamCut"><code class="docutils literal notranslate"><span class="pre">BeamCut</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamCut.header"><code class="docutils literal notranslate"><span class="pre">BeamCut.header</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamCut.vini"><code class="docutils literal notranslate"><span class="pre">BeamCut.vini</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamCut.vinc"><code class="docutils literal notranslate"><span class="pre">BeamCut.vinc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamCut.vnum"><code class="docutils literal notranslate"><span class="pre">BeamCut.vnum</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamCut.c"><code class="docutils literal notranslate"><span class="pre">BeamCut.c</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamCut.icomp"><code class="docutils literal notranslate"><span class="pre">BeamCut.icomp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamCut.icut"><code class="docutils literal notranslate"><span class="pre">BeamCut.icut</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamCut.ncomp"><code class="docutils literal notranslate"><span class="pre">BeamCut.ncomp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamCut.ncut"><code class="docutils literal notranslate"><span class="pre">BeamCut.ncut</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamCut.amp"><code class="docutils literal notranslate"><span class="pre">BeamCut.amp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamCut.__init__"><code class="docutils literal notranslate"><span class="pre">BeamCut.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamCut.__post_init__"><code class="docutils literal notranslate"><span class="pre">BeamCut.__post_init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamCut.to_polar"><code class="docutils literal notranslate"><span class="pre">BeamCut.to_polar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id34"><code class="docutils literal notranslate"><span class="pre">BeamCut.amp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id35"><code class="docutils literal notranslate"><span class="pre">BeamCut.c</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id36"><code class="docutils literal notranslate"><span class="pre">BeamCut.header</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id37"><code class="docutils literal notranslate"><span class="pre">BeamCut.icomp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id38"><code class="docutils literal notranslate"><span class="pre">BeamCut.icut</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id39"><code class="docutils literal notranslate"><span class="pre">BeamCut.ncomp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id40"><code class="docutils literal notranslate"><span class="pre">BeamCut.ncut</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamCut.plot"><code class="docutils literal notranslate"><span class="pre">BeamCut.plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id41"><code class="docutils literal notranslate"><span class="pre">BeamCut.to_polar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id42"><code class="docutils literal notranslate"><span class="pre">BeamCut.vinc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id43"><code class="docutils literal notranslate"><span class="pre">BeamCut.vini</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id44"><code class="docutils literal notranslate"><span class="pre">BeamCut.vnum</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid"><code class="docutils literal notranslate"><span class="pre">BeamGrid</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid.header"><code class="docutils literal notranslate"><span class="pre">BeamGrid.header</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid.ktype"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ktype</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid.nset"><code class="docutils literal notranslate"><span class="pre">BeamGrid.nset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid.klimit"><code class="docutils literal notranslate"><span class="pre">BeamGrid.klimit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid.icomp"><code class="docutils literal notranslate"><span class="pre">BeamGrid.icomp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid.ncomp"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ncomp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid.igrid"><code class="docutils literal notranslate"><span class="pre">BeamGrid.igrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid.ix"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ix</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid.iy"><code class="docutils literal notranslate"><span class="pre">BeamGrid.iy</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid.xs"><code class="docutils literal notranslate"><span class="pre">BeamGrid.xs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid.ys"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ys</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid.xe"><code class="docutils literal notranslate"><span class="pre">BeamGrid.xe</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid.ye"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ye</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid.nx"><code class="docutils literal notranslate"><span class="pre">BeamGrid.nx</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid.ny"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ny</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid.freq"><code class="docutils literal notranslate"><span class="pre">BeamGrid.freq</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid.frequnit"><code class="docutils literal notranslate"><span class="pre">BeamGrid.frequnit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid.amp"><code class="docutils literal notranslate"><span class="pre">BeamGrid.amp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid.__init__"><code class="docutils literal notranslate"><span class="pre">BeamGrid.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid.__post_init__"><code class="docutils literal notranslate"><span class="pre">BeamGrid.__post_init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid.to_polar"><code class="docutils literal notranslate"><span class="pre">BeamGrid.to_polar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id45"><code class="docutils literal notranslate"><span class="pre">BeamGrid.amp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id46"><code class="docutils literal notranslate"><span class="pre">BeamGrid.freq</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id47"><code class="docutils literal notranslate"><span class="pre">BeamGrid.frequnit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id48"><code class="docutils literal notranslate"><span class="pre">BeamGrid.header</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id49"><code class="docutils literal notranslate"><span class="pre">BeamGrid.icomp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id50"><code class="docutils literal notranslate"><span class="pre">BeamGrid.igrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id51"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ix</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id52"><code class="docutils literal notranslate"><span class="pre">BeamGrid.iy</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id53"><code class="docutils literal notranslate"><span class="pre">BeamGrid.klimit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id54"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ktype</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id55"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ncomp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id56"><code class="docutils literal notranslate"><span class="pre">BeamGrid.nset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id57"><code class="docutils literal notranslate"><span class="pre">BeamGrid.nx</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id58"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ny</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamGrid.plot"><code class="docutils literal notranslate"><span class="pre">BeamGrid.plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id59"><code class="docutils literal notranslate"><span class="pre">BeamGrid.to_polar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id60"><code class="docutils literal notranslate"><span class="pre">BeamGrid.xe</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id61"><code class="docutils literal notranslate"><span class="pre">BeamGrid.xs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id62"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ye</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id63"><code class="docutils literal notranslate"><span class="pre">BeamGrid.ys</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamMap"><code class="docutils literal notranslate"><span class="pre">BeamMap</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamMap.nside"><code class="docutils literal notranslate"><span class="pre">BeamMap.nside</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamMap.map"><code class="docutils literal notranslate"><span class="pre">BeamMap.map</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamMap.to_alm"><code class="docutils literal notranslate"><span class="pre">BeamMap.to_alm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id64"><code class="docutils literal notranslate"><span class="pre">BeamMap.to_alm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamMap.to_alm_lsq"><code class="docutils literal notranslate"><span class="pre">BeamMap.to_alm_lsq()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamPolar"><code class="docutils literal notranslate"><span class="pre">BeamPolar</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamPolar.nphi"><code class="docutils literal notranslate"><span class="pre">BeamPolar.nphi</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamPolar.ntheta"><code class="docutils literal notranslate"><span class="pre">BeamPolar.ntheta</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamPolar.theta_rad_min"><code class="docutils literal notranslate"><span class="pre">BeamPolar.theta_rad_min</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamPolar.theta_rad_max"><code class="docutils literal notranslate"><span class="pre">BeamPolar.theta_rad_max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamPolar.stokes"><code class="docutils literal notranslate"><span class="pre">BeamPolar.stokes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamPolar.filename"><code class="docutils literal notranslate"><span class="pre">BeamPolar.filename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamPolar.stokes_rotate"><code class="docutils literal notranslate"><span class="pre">BeamPolar.stokes_rotate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamPolar.to_map"><code class="docutils literal notranslate"><span class="pre">BeamPolar.to_map()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#grasp2alm.BeamPolar.plot"><code class="docutils literal notranslate"><span class="pre">BeamPolar.plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id65"><code class="docutils literal notranslate"><span class="pre">BeamPolar.plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id66"><code class="docutils literal notranslate"><span class="pre">BeamPolar.stokes_rotate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="grasp2alm.html#id67"><code class="docutils literal notranslate"><span class="pre">BeamPolar.to_map()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="grasp2alm.html#grasp2alm.grasp2alm"><code class="docutils literal notranslate"><span class="pre">grasp2alm()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="grasp2alm.html#grasp2alm.grasp2alm_lsq"><code class="docutils literal notranslate"><span class="pre">grasp2alm_lsq()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">grasp2alm</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">grasp2alm</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="grasp2alm.html">grasp2alm package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to grasp2alm’s documentation!</a></li>
+      <li>Next: <a href="grasp2alm.html" title="next chapter">grasp2alm package</a></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Yusuke Takase.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/modules.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

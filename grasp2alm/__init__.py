@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 from .beam_grid import BeamGrid
 from .beam_cut import BeamCut
 from .beam_polar import BeamPolar

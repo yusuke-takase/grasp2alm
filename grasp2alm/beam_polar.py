@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 from dataclasses import dataclass
 import numpy as np
 import matplotlib.pyplot as plt
@@ -5,7 +7,6 @@ import copy
 import healpy as hp
 from .beam_map import BeamMap
 from scipy.interpolate import RegularGridInterpolator
-from typing import Type
 
 @dataclass
 class BeamPolar:
