@@ -3,6 +3,7 @@
 from dataclasses import dataclass
 import numpy as np
 import matplotlib.pyplot as plt
+import warnings
 from .beam_polar import BeamPolar
 
 @dataclass
@@ -77,8 +78,10 @@ class BeamGrid:
                     self.freq = float(fi.readline().strip())
                 else:
                     self.header += "\n" + line
+
             self.ktype = int(fi.readline())
             assert self.ktype == 1, "Unknown Grasp grid format, ktype != 1"
+
             line = fi.readline().split()
             self.nset  = int(line[0])
             self.icomp = int(line[1])
@@ -86,7 +89,7 @@ class BeamGrid:
             self.igrid = int(line[3])
 
             if self.nset > 1:
-                print("Warning: nset > 1, only reading first beam in file")
+                warnings.warn("Warning: nset > 1, only reading first beam in file")
 
             line = fi.readline().split()
             self.ix = int(line[0])
@@ -101,6 +104,10 @@ class BeamGrid:
             self.ys = float(line[1])
             self.xe = float(line[2])
             self.ye = float(line[3])
+
+            beam_solid_angle_rad = (np.cos(np.deg2rad(self.ys)) - np.cos(np.deg2rad(self.ye))) * (np.deg2rad(self.xe) - np.deg2rad(self.xs))
+            if not np.isclose(beam_solid_angle_rad, 2.0*np.pi) and not np.isclose(beam_solid_angle_rad, 4.0*np.pi):
+                warnings.warn("Warning: beam solid angle is not 2pi or 4pi because BeamGrid has xs={xs}, xe={xe}, ys={ys} and ye={ye}. The header should be checked.")
 
             line = fi.readline().split()
             self.nx = int(line[0])
@@ -157,7 +164,6 @@ class BeamGrid:
         if swaptheta:
             print("Warning: swapping theta direction")
             theta_rad_min = np.deg2rad(self.ye)
-
             theta_rad_max = np.deg2rad(self.ys)
         beam_polar = BeamPolar(nphi, ntheta, theta_rad_min, theta_rad_max, self.filename)
 

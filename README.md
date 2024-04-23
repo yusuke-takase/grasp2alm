@@ -11,12 +11,6 @@ cd grasp2alm
 pip install -e .
 ```
 
-## Dependency
-
-- `numpy`
-- `healpy`
-- `matplotlib`
-
 ## Class Descriptions
 
 ### Class: BeamGrid
