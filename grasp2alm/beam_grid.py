@@ -107,7 +107,7 @@ class BeamGrid:
 
             beam_solid_angle_rad = (np.cos(np.deg2rad(self.ys)) - np.cos(np.deg2rad(self.ye))) * (np.deg2rad(self.xe) - np.deg2rad(self.xs))
             if not np.isclose(beam_solid_angle_rad, 2.0*np.pi) and not np.isclose(beam_solid_angle_rad, 4.0*np.pi):
-                warnings.warn("Warning: beam solid angle is not 2pi or 4pi because BeamGrid has xs={xs}, xe={xe}, ys={ys} and ye={ye}. The header should be checked.")
+                warnings.warn(f"Warning: beam solid angle is not 2pi or 4pi because BeamGrid has xs={self.xs}, xe={self.xe}, ys={self.ys} and ye={self.ye}. The header should be checked.")
 
             line = fi.readline().split()
             self.nx = int(line[0])
