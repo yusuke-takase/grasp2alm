@@ -2,3 +2,7 @@ grasp2alm.egg-info/
 grasp2alm/__pycache__/
 dist/
 build/
+docs/_build/
+docs/_templates/
+test/__pycache__
+.pytest_cache/

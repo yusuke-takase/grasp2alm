@@ -1,28 +1,31 @@
 # -*- encoding: utf-8 -*-
 
 import unittest
-import grasp2alm as gp
+from grasp2alm import BeamGrid, BeamCut, grasp2alm
 import numpy as np
+from pathlib import Path
 
 class TestGrasp2Alm(unittest.TestCase):
     def test_grasp2alm_with_gridfile(self):
-        file = "./beam_files/test.grd"
-        beam = gp.BeamGrid(file)
+        file = Path(__file__).parent / "beam_files" / "test.grd"
+        file = str(file)
+        beam = BeamGrid(file)
         polar = beam.to_polar()
         nside = 128
         beammap = polar.to_map(nside)
         blm1 = beammap.to_alm()
-        blm2 = gp.grasp2alm(file, nside)
+        blm2 = grasp2alm(file, nside)
         self.assertTrue(np.array_equal(blm1, blm2), "blm1 and blm2 are not equal")
 
     def test_grasp2alm_with_cutfile(self):
-        file = "./beam_files/test.cut"
-        beam = gp.BeamCut(file)
+        file = Path(__file__).parent / "beam_files" / "test.cut"
+        file = str(file)
+        beam = BeamCut(file)
         polar = beam.to_polar()
         nside = 128
         beammap = polar.to_map(nside)
         blm1 = beammap.to_alm()
-        blm2 = gp.grasp2alm(file, nside)
+        blm2 = grasp2alm(file, nside)
         self.assertTrue(np.array_equal(blm1, blm2), "blm1 and blm2 are not equal")
 
 
