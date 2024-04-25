@@ -34,7 +34,7 @@ class BeamCut:
     vini: float = 0.0
     vinc: float = 0.0
     vnum: int = 0
-    c: np.ndarray = field(default_factory=lambda: np.array([])) # TODO check is it needed variable
+    c: np.ndarray = np.array([]) # TODO check is it needed variable
     icomp: int = 0
     icut: int = 0
     ncomp: int = 0
