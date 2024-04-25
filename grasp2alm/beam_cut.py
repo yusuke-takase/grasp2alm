@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import numpy as np
 import matplotlib.pyplot as plt
 from .beam_polar import BeamPolar
@@ -34,12 +34,12 @@ class BeamCut:
     vini: float = 0.0
     vinc: float = 0.0
     vnum: int = 0
-    c: np.ndarray = np.array([]) # TODO check is it needed variable
+    c: np.ndarray = field(default_factory=lambda: np.array([])) # TODO check is it needed variable
     icomp: int = 0
     icut: int = 0
     ncomp: int = 0
     ncut: int = 0
-    amp: np.ndarray = np.array([])
+    amp: np.ndarray = field(default_factory=lambda: np.array([]))
 
     def __init__(self, filepath):
         super().__init__()

@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import numpy as np
 import matplotlib.pyplot as plt
 import warnings
@@ -56,7 +56,7 @@ class BeamGrid:
     ny: int = 0
     freq: float = 0.0
     frequnit: str = ""
-    amp: np.ndarray = np.array([])
+    amp: np.ndarray = field(default_factory=lambda: np.array([]))
 
 
     def __init__(self, filepath):
