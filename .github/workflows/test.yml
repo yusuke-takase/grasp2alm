@@ -40,7 +40,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Install grasp2alm
-        run: poetry instal
+        run: poetry install
 
       - name: Test
         run: poetry run pytest -vv
