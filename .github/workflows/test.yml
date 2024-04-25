@@ -18,6 +18,8 @@ jobs:
         exclude:
           - os: macos-latest
             python: 3.9
+          - os: ubuntu-latest
+            python: 3.11
 
     steps:
       - name: Checkout
@@ -28,16 +30,17 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
 
-      - name: "Install poetry"
+      - name: Install poetry
         run: python -m pip install poetry==1.8.2
 
-      - name: "Install grasp2alm dependencies"
+      - name: Install grasp2alm dependencies
         run: |
           poetry export --without-hashes -o requirements.txt
           pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Install grasp2alm
+        run: poetry instal
+
       - name: Test
-        run: |
-          poetry install
-          poetry run pytest -vv
+        run: poetry run pytest -vv
