@@ -3,6 +3,7 @@
 from dataclasses import dataclass, field
 import numpy as np
 import matplotlib.pyplot as plt
+from typing import Union
 from .beam_polar import BeamPolar
 
 @dataclass
@@ -34,12 +35,13 @@ class BeamCut:
     vini: float = 0.0
     vinc: float = 0.0
     vnum: int = 0
-    c: np.ndarray = np.array([]) # TODO check is it needed variable
+    c: np.ndarray = None # TODO check is it needed variable
+
     icomp: int = 0
     icut: int = 0
     ncomp: int = 0
     ncut: int = 0
-    amp: np.ndarray = field(default_factory=lambda: np.array([]))
+    amp: np.ndarray = None
 
     def __init__(self, filepath):
         super().__init__()
@@ -76,7 +78,7 @@ class BeamCut:
                     break
                 data = line.split()
                 if len(data) == 7:
-                    self.vini, self.vinc, self.vnum, c, self.icomp, self.icut, self.ncomp = map(float, data)
+                    self.vini, self.vinc, self.vnum, self.c, self.icomp, self.icut, self.ncomp = map(float, data)
                     self.vnum, self.icomp, self.icut, self.ncomp = map(int, (self.vnum, self.icomp, self.icut, self.ncomp))
                     for i in range(self.vnum):
                         line = fi.readline()

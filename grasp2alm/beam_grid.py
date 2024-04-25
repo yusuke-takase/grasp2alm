@@ -56,7 +56,7 @@ class BeamGrid:
     ny: int = 0
     freq: float = 0.0
     frequnit: str = ""
-    amp: np.ndarray = field(default_factory=lambda: np.array([]))
+    amp: np.ndarray = None
 
 
     def __init__(self, filepath):
