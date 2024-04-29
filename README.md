@@ -1,6 +1,6 @@
 <p align="center">
   <h1>grasp2alm</h1>
-  <img src="./images/logo/grasp2alm_logo2.png" alt="Logo">
+  <img src="./images/logo/grasp2alm_logo_wide.png" alt="Logo">
 </p>
 
 This package supports the conversion from beam data calculated using [GRASP](https://www.ticra.com/software/grasp/) for CMB experiments to spherical harmonic coefficients ($a_{lm}$) based on the [HEALPix](https://healpix.sourceforge.io/) framework.
