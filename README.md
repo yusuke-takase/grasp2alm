@@ -1,6 +1,6 @@
 <p align="center">
   <h1>
-  <img src="./images/logo/grasp2alm_logo_wide.png" alt="Logo">
+  <img src="https://private-user-images.githubusercontent.com/83496454/326472496-956d5c54-1d93-4f3f-9d93-d69b3ae9be0b.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTQ0MDA4NjAsIm5iZiI6MTcxNDQwMDU2MCwicGF0aCI6Ii84MzQ5NjQ1NC8zMjY0NzI0OTYtOTU2ZDVjNTQtMWQ5My00ZjNmLTlkOTMtZDY5YjNhZTliZTBiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA0MjklMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNDI5VDE0MjI0MFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTAyMjUxMGYxYTY4NmNiOWI4NjhmY2VmZDJmODhlMjBmODE0Y2ZjYzlmY2MzN2E5MGE2ZTdmNjI0YWI3ODQ2ODImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.yt8_PH_B17hRjsHbDkYsEQpguTQ3WsMcdP9AjV-IYoU" alt="Logo">
   </h1>
 </p>
 
@@ -8,6 +8,12 @@ This package supports the conversion from beam data calculated using [GRASP](htt
 The code is designed based on [Beam](https://github.com/zonca/planck-levelS/tree/master/Beam), which is part of [LevelS](https://github.com/zonca/planck-levelS), the pipleline of the Planck experiment.
 
 ## Instllation
+
+```
+pip install grasp2alm
+```
+
+Or you can install from source by:
 
 ```
 git clone https://github.com/yusuke-takase/grasp2alm
