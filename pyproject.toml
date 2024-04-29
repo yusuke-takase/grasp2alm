@@ -6,6 +6,10 @@ description = "Package supporting conversion from GRASP beam format to spherical
 authors = ["yusuke-takase <takase_y@s.okayama-u.ac.jp>"]
 license = "GPL3"
 readme = "README.md"
+include = [
+    "images/logo/grasp2alm_logo_square.png",
+    "images/logo/grasp2alm_logo_wide.png",
+]
 repository = "https://github.com/yusuke-takase/grasp2alm"
 keywords = [
     "GRASP",

@@ -67,7 +67,7 @@ Represents a beam map.
 
 #### Methods
 
-- `to_alm(lmax=None,mmax=None,iter=3,pol=True,use_weights=False,datapath=None,gal_cut=0,use_pixel_weights=False,)`: Converts the beam map to spherical harmonic coefficients, which is often called $b_{lm}$.
+- `to_alm(lmax=None,mmax=None,iter=3,pol=True,use_weights=False,datapath=None,gal_cut=0,use_pixel_weights=False)`: Converts the beam map to spherical harmonic coefficients, which is often called $b_{lm}$.
 - `to_alm_lsq(lmax,mmax,pol=True,tol=1e-10,maxiter=20)`
   Converts the beam map to spherical harmonic coefficients by using `healpy.map2alm_lsq`.
 
