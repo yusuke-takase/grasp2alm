@@ -32,30 +32,41 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Install Poetry
         run: pipx install poetry
+
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
           cache: "poetry"
+
       - name: Check poetry
         run: |
           poetry --version
           poetry config --list
+
+      - name: Install sphinx
+        run: pip install sphinx
+
       - name: Install dependencies
         run: poetry install
+
       - name: Build Sphinx
         run: |
           cd docs
           poetry run sphinx-apidoc -f -o . ../
           poetry run make html
+
       - name: Setup Pages
         uses: actions/configure-pages@v3
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
           path: "./docs/_build/html/"
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
