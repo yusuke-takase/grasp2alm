@@ -5,9 +5,9 @@
 </p>
 
 [![docs](https://img.shields.io/badge/docs-stable-blue.svg)](https://yusuke-takase.github.io/grasp2alm/index.html)
+[![PyPI - Version](https://img.shields.io/pypi/v/grasp2alm)](https://pypi.org/project/grasp2alm/)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/grasp2alm)
 ![build status](https://github.com/yusuke-takase/grasp2alm/actions/workflows/test.yml/badge.svg?branch=master)
-![PyPI - Version](https://img.shields.io/pypi/v/grasp2alm)
 ![PyPI - License](https://img.shields.io/pypi/l/grasp2alm)
 
 This package supports the conversion from beam data calculated using [GRASP](https://www.ticra.com/software/grasp/) for CMB experiments to spherical harmonic coefficients ($a_{\ell m}$) based on the [HEALPix](https://healpix.sourceforge.io/) framework.
