@@ -5,7 +5,7 @@
 </p>
 
 [![Docs](https://img.shields.io/badge/docs-stable-blue.svg)](https://yusuke-takase.github.io/grasp2alm/index.html)
-[![Build status](https://github.com/yusuke-takase/grasp2alm/blob/master/.github/workflows/test.yml/badge.svg?branch=master)](https://github.com/yusuke-takase/grasp2alm/blob/master/.github/workflows/test.yml/badge.svg)
+[![Build status]](https://github.com/yusuke-takase/grasp2alm/blob/master/.github/workflows/test.yml/badge.svg?branch=main)
 
 This package supports the conversion from beam data calculated using [GRASP](https://www.ticra.com/software/grasp/) for CMB experiments to spherical harmonic coefficients ($a_{lm}$) based on the [HEALPix](https://healpix.sourceforge.io/) framework.
 The code is designed based on [Beam](https://github.com/zonca/planck-levelS/tree/master/Beam), which is part of [LevelS](https://github.com/zonca/planck-levelS), the pipleline of the Planck experiment.
