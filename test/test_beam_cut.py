@@ -25,15 +25,13 @@ class TestBeamCut(unittest.TestCase):
         assert self.test_cut.icut == 1
         assert self.test_cut.ncomp == 2
         assert self.test_cut.ncut == 1
-        self.assertTrue(
-            np.array_equal(
-                self.test_cut.amp,
-                np.array(
+        expected_amp = np.array(
                     [[[1.+2.j],[-1.-2.j],[1.+1.j]],
                     [[3.+4.j],[-3.-4.j],[1.+1.j]]]
                 )
-            )
-        )
+        self.assertTrue(np.array_equal(self.test_cut.amp,expected_amp))
+    def test_to_polar(self):
+        pass
 
 if __name__ == '__main__':
     unittest.main()
