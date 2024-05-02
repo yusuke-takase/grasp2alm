@@ -77,7 +77,7 @@ class BeamGrid:
                     self.frequnit = line.split("[")[1].split("]")[0]
                     self.freq = float(fi.readline().strip())
                 else:
-                    self.header += "\n" + line
+                    self.header += line[:-1] + '\n'
 
             self.ktype = int(fi.readline())
             assert self.ktype == 1, "Unknown Grasp grid format, ktype != 1"

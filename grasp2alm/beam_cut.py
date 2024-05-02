@@ -35,7 +35,7 @@ class BeamCut:
     vini: float = 0.0
     vinc: float = 0.0
     vnum: int = 0
-    c: np.ndarray = None # TODO check is it needed variable
+    c = np.array([])
 
     icomp: int = 0
     icut: int = 0
@@ -78,7 +78,7 @@ class BeamCut:
                     break
                 data = line.split()
                 if len(data) == 7:
-                    self.vini, self.vinc, self.vnum, self.c, self.icomp, self.icut, self.ncomp = map(float, data)
+                    self.vini, self.vinc, self.vnum, _, self.icomp, self.icut, self.ncomp = map(float, data)
                     self.vnum, self.icomp, self.icut, self.ncomp = map(int, (self.vnum, self.icomp, self.icut, self.ncomp))
                     for i in range(self.vnum):
                         line = fi.readline()
