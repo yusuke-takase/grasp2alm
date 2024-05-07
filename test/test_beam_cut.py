@@ -23,6 +23,16 @@ class TestBeamCut(unittest.TestCase):
         self.write_to_test_cut(txt_with_error)
         with self.assertRaises(ValueError):
             BeamCut(self.path_to_test_cut)
+    def test_vnum_exeption(self):
+        txt_with_error = '''Test header
+            -180 90 10 0 3 1 2
+            1 2 3 4
+            -1.0 -2.0 -3.0 -4.0
+            1 1 1 1
+        '''
+        self.write_to_test_cut(txt_with_error)
+        with self.assertRaises(ValueError):
+            BeamCut(self.path_to_test_cut)
     def test_cut_reading(self):
         txt = '''Test header
             -180 90 3 0 3 1 2
