@@ -61,7 +61,8 @@ class BeamMap:
 
         """
 
-        assert self.map.shape[0] <=3 , "Error in BeamMap.to_alm: map has more than 3 Stokes parameters"
+        if not self.map.shape[0] <=3:
+            raise ValueError("Error in BeamMap.to_alm: map has more than 3 Stokes parameters")
 
         alm = hp.map2alm(
             self.map,
@@ -109,7 +110,8 @@ class BeamMap:
 
         """
 
-        assert self.map.shape[0] <=3 , "Error in BeamMap.to_alm: map has more than 3 Stokes parameters"
+        if not self.map.shape[0] <=3:
+            raise ValueError("Error in BeamMap.to_alm: map has more than 3 Stokes parameters")
 
         alm = hp.map2alm_lsq(
             self.map,

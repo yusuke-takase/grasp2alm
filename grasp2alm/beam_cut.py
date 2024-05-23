@@ -112,7 +112,8 @@ class BeamCut:
             raise ValueError("Error in BeamCut.to_polar: beam is not in phi cuts")
         if self.ncomp != 2:
             raise ValueError("Error in BeamCut.to_polar: beam has the wrong number of components")
-        assert copol_axis in ["x", "y"], "Error in BeamCut.to_polar: copol_axis must be 'x' or 'y'"
+        if copol_axis not in ["x", "y"]:
+            raise ValueError("Error in BeamCut.to_polar: copol_axis must be 'x' or 'y'")
 
         nphi = int(2 * self.ncut)
         ntheta = int(self.vnum // 2)
@@ -163,7 +164,8 @@ class BeamCut:
             z (ndarray): The z values of the plot.
 
         """
-        assert pol == 'co' or pol == 'cx', "Error in BeamCut.plot: pol must be 'co' or 'cx'"
+        if not (pol == 'co' or pol == 'cx'):
+            raise ValueError("Error in BeamCut.plot: pol must be 'co' or 'cx'")
 
         theta = np.deg2rad(np.linspace(self.vini, self.vini + self.vinc * (self.vnum - 1), self.vnum))
         phi = np.deg2rad(np.linspace(0.0, 180.0, self.ncut))

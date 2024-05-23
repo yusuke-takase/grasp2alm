@@ -80,7 +80,8 @@ class BeamGrid:
                     self.header += line[:-1] + '\n'
 
             self.ktype = int(fi.readline())
-            assert self.ktype == 1, "Unknown Grasp grid format, ktype != 1"
+            if not self.ktype == 1:
+                raise ValueError("Unknown Grasp grid format, ktype != 1")
 
             line = fi.readline().split()
             self.nset  = int(line[0])
@@ -149,12 +150,16 @@ class BeamGrid:
 
         """
         copol_axis = copol_axis.lower()
-        assert self.ncomp == 2, "Error in BeamGrid.to_polar: beam is not in linear 'co' and 'cx' components"
-
-        assert self.igrid == 7, "Error in BeamGrid.to_polar: beam is not on theta-phi grid"
-        assert abs(self.xs) <= 1e-5, "Error in BeamGrid.to_polar: phi coordinates does not start at zero"
-        assert abs(self.xe - self.xs - 360.0) <= 1e-5, "Error in BeamGrid.to_polar: phi range is not 360 degrees"
-        assert copol_axis in ["x", "y"], "Error in BeamGrid.to_polar: copol_axis must be 'x' or 'y'"
+        if not self.ncomp == 2:
+            raise ValueError("Error in BeamGrid.to_polar: beam is not in linear 'co' and 'cx' components")
+        if not self.igrid == 7:
+            raise ValueError("Error in BeamGrid.to_polar: beam is not on theta-phi grid")
+        if not abs(self.xs) <= 1e-5:
+            raise ValueError("Error in BeamGrid.to_polar: phi coordinates does not start at zero")
+        if not abs(self.xe - self.xs - 360.0) <= 1e-5:
+            raise ValueError("Error in BeamGrid.to_polar: phi range is not 360 degrees")
+        if copol_axis not in ["x", "y"]:
+            raise ValueError("Error in BeamGrid.to_polar: copol_axis must be 'x' or 'y'")
 
         nphi = self.nx - 1
         ntheta = self.ny
@@ -220,7 +225,8 @@ class BeamGrid:
             z (ndarray): The z values of the plot.
 
         """
-        assert pol == 'co' or pol == 'cx', "Error in BeamGrid.plot: pol must be 'co' or 'cx'"
+        if not (pol == 'co' or pol == 'cx'):
+            raise ValueError("Error in BeamGrid.plot: pol must be 'co' or 'cx'")
         dx = (self.xe - self.xs) / (self.nx - 1)
         dy = (self.ye - self.ys) / (self.ny - 1)
 

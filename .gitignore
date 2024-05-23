@@ -3,3 +3,4 @@ grasp2alm/__pycache__/
 dist/
 test/__pycache__
 .pytest_cache/
+.vscode/
