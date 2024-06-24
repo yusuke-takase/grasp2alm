@@ -29,7 +29,7 @@ class BeamPolar:
     Methods:
         stokes_rotate(): Rotate the stokes beam.
         to_map(nside, nstokes=3, outOftheta_val=0.0): Convert the beam to a map.
-        plot(stokes="I", color_resol=20, figsize=6, cmap="jet", return_fields=False): Plot the beam.
+        plot(stokes="I", color_resol=20, figsize=6, cmap="inferno", return_fields=False): Plot the beam.
 
     """
 
@@ -143,7 +143,7 @@ class BeamPolar:
         return value
 
 
-    def plot(self, stokes="I", color_resol=20, figsize=6, cmap="jet", return_fields=False):
+    def plot(self, stokes="I", color_resol=20, figsize=6, cmap="inferno", return_fields=False):
         """Plot the beam.
 
         Args:

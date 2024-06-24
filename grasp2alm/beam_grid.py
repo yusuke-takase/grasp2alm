@@ -35,7 +35,7 @@ class BeamGrid:
         __post_init__(self): Read and parse the beam grid file.
         to_polar(self, copol_axis="x"): Convert the beam grid
             to polar coordinates.
-        plot(self, pol='co', color_resol=20, figsize=6, cmap="jet",
+        plot(self, pol='co', color_resol=20, figsize=6, cmap="inferno",
             return_fields=False): Plot the beam grid.
 
     """
@@ -200,7 +200,7 @@ class BeamGrid:
         return beam_polar
 
 
-    def plot(self, pol='co', color_resol=20, figsize=6, cmap="jet", return_fields=False):
+    def plot(self, pol='co', color_resol=20, figsize=6, cmap="inferno", return_fields=False):
         """Plot the beam pattern.
 
         Args:

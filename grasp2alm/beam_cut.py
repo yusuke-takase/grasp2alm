@@ -27,7 +27,7 @@ class BeamCut:
         __post_init__(self): Performs post-initialization tasks.
         to_polar(self, copol_axis="x"): Converts the beam
             to polar coordinates.
-        plot(self, pol='co', color_resol=20, figsize=6, cmap="jet",
+        plot(self, pol='co', color_resol=20, figsize=6, cmap="inferno",
             return_fields=False): Plots the beam.
 
     """
@@ -143,7 +143,7 @@ class BeamCut:
         beam_polar.stokes[3, :, :] = 2.0 * np.imag(acaxs)
         return beam_polar
 
-    def plot(self, pol='co', color_resol=20, figsize=6, cmap="jet", return_fields=False):
+    def plot(self, pol='co', color_resol=20, figsize=6, cmap="inferno", return_fields=False):
         """Plot the beam pattern.
 
         Args:
