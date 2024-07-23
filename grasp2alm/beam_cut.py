@@ -8,9 +8,10 @@ from .beam_polar import BeamPolar
 
 @dataclass
 class BeamCut:
-    """Class to hold the data from a beam cut file of GRASP.
+    """
+    Class to hold the data from a beam cut file of GRASP.
 
-    Attributes:
+    Args:
         header (str): Record with identification text.
         vini (float): Initial value.
         vinc (float): Increment.
@@ -21,15 +22,6 @@ class BeamCut:
         ncomp (int): Number of field components.
         ncut (int): Number of cuts.
         amp (np.ndarray): Amplitude.
-
-    Methods:
-        __init__(self, filepath): Initializes a BeamCut object.
-        __post_init__(self): Performs post-initialization tasks.
-        to_polar(self, copol_axis="x"): Converts the beam
-            to polar coordinates.
-        plot(self, pol='co', color_resol=20, figsize=6, cmap="jet",
-            return_fields=False): Plots the beam.
-
     """
     header: str = ""
     vini: float = 0.0
@@ -44,12 +36,18 @@ class BeamCut:
     amp: np.ndarray = None
 
     def __init__(self, filepath):
+        """
+        Initializes a BeamCut object.
+        """
         super().__init__()
         self.filepath = filepath
         self.filename = filepath.split("/")[-1]
         self.__post_init__()
 
     def __post_init__(self):
+        """
+        Performs post-initialization tasks.
+        """
         if not self.filepath.endswith(".cut"):
             raise ValueError("Error in BeamCut.__post_init__: The file is not a GRASP cut file.")
         with open(self.filepath, "r") as fi:
@@ -144,7 +142,14 @@ class BeamCut:
         beam_polar.stokes[3, :, :] = 2.0 * np.imag(acaxs)
         return beam_polar
 
-    def plot(self, pol='co', color_resol=20, figsize=6, cmap="jet", return_fields=False):
+    def plot(
+        self, 
+        pol='co', 
+        color_resol=20, 
+        figsize=6, 
+        cmap="jet", 
+        return_fields=False
+        ):
         """Plot the beam pattern.
 
         Args:
@@ -154,15 +159,10 @@ class BeamCut:
             cmap (str): The colormap to use for the plot.
             return_fields (bool): Whether to return the x, y, and z values.
 
-        Returns:
-        If return_fields is False:
-            None
-
-        If return_fields is True:
-            x (ndarray): The x values of the plot.
-            y (ndarray): The y values of the plot.
-            z (ndarray): The z values of the plot.
-
+        Returns
+        -------
+            None: if return_fields is False (default)
+            (ndarray,ndarray,ndarray): if return_fields is True returns x,y,z values of the plot.
         """
         if not (pol == 'co' or pol == 'cx'):
             raise ValueError("Error in BeamCut.plot: pol must be 'co' or 'cx'")
