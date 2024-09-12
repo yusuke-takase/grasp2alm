@@ -8,6 +8,7 @@ from .beam2alm import (
     grasp2alm,
     grasp2alm_lsq
 )
+from .beam_gauss import BeamGauss
 
 from .version import (
     __author__,
@@ -32,4 +33,5 @@ __all__ = [
     # beam2alm.py
     "grasp2alm",
     "grasp2alm_lsq"
+    "BeamGauss"
 ]

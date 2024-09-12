@@ -125,6 +125,8 @@ class BeamGrid:
 
                 for i in range(is_val, in_val+1):
                     line = fi.readline().split()
+                    if any(np.isnan( list(map(float,line))) ):
+                        raise ValueError("Encountered a NaN value in Amplitude. Please check your input.")
                     self.amp[0, i-1, j] = float(line[0]) + float(line[1]) * 1j
                     self.amp[1, i-1, j] = float(line[2]) + float(line[3]) * 1j
 

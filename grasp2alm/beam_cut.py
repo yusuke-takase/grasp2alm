@@ -82,6 +82,8 @@ class BeamCut:
                         line = fi.readline()
                         data = line.split()
                         tmp1, tmp2, tmp3, tmp4 = map(float, data)
+                        if any(np.isnan([tmp1, tmp2, tmp3, tmp4])):
+                            raise ValueError("Encountered a NaN value in Amplitude. Please check your input.")
                         self.amp[0, i, cnt] = complex(tmp1, tmp2)
                         self.amp[1, i, cnt] = complex(tmp3, tmp4)
                     cnt += 1
