@@ -137,7 +137,7 @@ class BeamPolar:
         return value
 
 
-    def plot(self, stokes="I", color_resol=20, figsize=6, cmap="jet", return_fields=False):
+    def plot(self, stokes="I", color_resol=20, figsize=6, cmap="inferno", return_fields=False):
         """Plot the beam.
 
         Args:

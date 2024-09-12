@@ -116,14 +116,14 @@ class BeamCut:
             raise ValueError("Error in BeamCut.to_polar: copol_axis must be 'x' or 'y'")
 
         nphi = int(2 * self.ncut)
-        ntheta = int(self.vnum // 2)
+        ntheta = int(self.vnum // 2)+1
         theta_rad_min = 0.0
         theta_rad_max = np.deg2rad(np.abs(self.vini))
         beam_polar = BeamPolar(nphi, ntheta, theta_rad_min, theta_rad_max, self.filename)
         amp_tmp = np.zeros((2, nphi, ntheta), dtype=complex)
 
         for i in range(self.ncut):
-            amp_tmp[:, i, :] = self.amp[:, ntheta:self.vnum-1, i]
+            amp_tmp[:, i, :] = self.amp[:, ntheta-1:self.vnum+1, i]
             amp_tmp[:, self.ncut + i, :] = self.amp[:, ntheta-1::-1, i]
 
         if copol_axis == "x":
@@ -144,14 +144,7 @@ class BeamCut:
         beam_polar.stokes[3, :, :] = 2.0 * np.imag(acaxs)
         return beam_polar
 
-    def plot(
-        self, 
-        pol='co', 
-        color_resol=20, 
-        figsize=6, 
-        cmap="jet", 
-        return_fields=False
-        ):
+    def plot(self, pol='co', color_resol=20, figsize=6, cmap="inferno", return_fields=False):
         """Plot the beam pattern.
 
         Args:

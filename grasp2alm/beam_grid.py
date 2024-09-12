@@ -203,7 +203,7 @@ class BeamGrid:
         return beam_polar
 
 
-    def plot(self, pol='co', color_resol=20, figsize=6, cmap="jet", return_fields=False):
+    def plot(self, pol='co', color_resol=20, figsize=6, cmap="inferno", return_fields=False):
         """Plot the beam pattern.
 
         Args:
