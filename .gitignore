@@ -3,3 +3,9 @@ grasp2alm/__pycache__/
 dist/
 test/__pycache__
 .pytest_cache/
+.vscode/
+.DS_Store
+test/.DS_Store
+docs/build
+.venv/
+notebooks/

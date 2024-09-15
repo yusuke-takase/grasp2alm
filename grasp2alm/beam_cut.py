@@ -8,9 +8,10 @@ from .beam_polar import BeamPolar
 
 @dataclass
 class BeamCut:
-    """Class to hold the data from a beam cut file of GRASP.
+    """
+    Class to hold the data from a beam cut file of GRASP.
 
-    Attributes:
+    Args:
         header (str): Record with identification text.
         vini (float): Initial value.
         vinc (float): Increment.
@@ -21,21 +22,12 @@ class BeamCut:
         ncomp (int): Number of field components.
         ncut (int): Number of cuts.
         amp (np.ndarray): Amplitude.
-
-    Methods:
-        __init__(self, filepath): Initializes a BeamCut object.
-        __post_init__(self): Performs post-initialization tasks.
-        to_polar(self, copol_axis="x"): Converts the beam
-            to polar coordinates.
-        plot(self, pol='co', color_resol=20, figsize=6, cmap="inferno",
-            return_fields=False): Plots the beam.
-
     """
     header: str = ""
     vini: float = 0.0
     vinc: float = 0.0
     vnum: int = 0
-    c: np.ndarray = None # TODO check is it needed variable
+    c = np.array([])
 
     icomp: int = 0
     icut: int = 0
@@ -44,12 +36,18 @@ class BeamCut:
     amp: np.ndarray = None
 
     def __init__(self, filepath):
+        """
+        Initializes a BeamCut object.
+        """
         super().__init__()
         self.filepath = filepath
         self.filename = filepath.split("/")[-1]
         self.__post_init__()
 
     def __post_init__(self):
+        """
+        Performs post-initialization tasks.
+        """
         if not self.filepath.endswith(".cut"):
             raise ValueError("Error in BeamCut.__post_init__: The file is not a GRASP cut file.")
         with open(self.filepath, "r") as fi:
@@ -78,12 +76,14 @@ class BeamCut:
                     break
                 data = line.split()
                 if len(data) == 7:
-                    self.vini, self.vinc, self.vnum, self.c, self.icomp, self.icut, self.ncomp = map(float, data)
+                    self.vini, self.vinc, self.vnum, _, self.icomp, self.icut, self.ncomp = map(float, data)
                     self.vnum, self.icomp, self.icut, self.ncomp = map(int, (self.vnum, self.icomp, self.icut, self.ncomp))
                     for i in range(self.vnum):
                         line = fi.readline()
                         data = line.split()
                         tmp1, tmp2, tmp3, tmp4 = map(float, data)
+                        if any(np.isnan([tmp1, tmp2, tmp3, tmp4])):
+                            raise ValueError("Encountered a NaN value in Amplitude. Please check your input.")
                         self.amp[0, i, cnt] = complex(tmp1, tmp2)
                         self.amp[1, i, cnt] = complex(tmp3, tmp4)
                     cnt += 1
@@ -112,7 +112,8 @@ class BeamCut:
             raise ValueError("Error in BeamCut.to_polar: beam is not in phi cuts")
         if self.ncomp != 2:
             raise ValueError("Error in BeamCut.to_polar: beam has the wrong number of components")
-        assert copol_axis in ["x", "y"], "Error in BeamCut.to_polar: copol_axis must be 'x' or 'y'"
+        if copol_axis not in ["x", "y"]:
+            raise ValueError("Error in BeamCut.to_polar: copol_axis must be 'x' or 'y'")
 
         nphi = int(2 * self.ncut)
         ntheta = int(self.vnum // 2)+1
@@ -153,17 +154,13 @@ class BeamCut:
             cmap (str): The colormap to use for the plot.
             return_fields (bool): Whether to return the x, y, and z values.
 
-        Returns:
-        If return_fields is False:
-            None
-
-        If return_fields is True:
-            x (ndarray): The x values of the plot.
-            y (ndarray): The y values of the plot.
-            z (ndarray): The z values of the plot.
-
+        Returns
+        -------
+            None: if return_fields is False (default)
+            (ndarray,ndarray,ndarray): if return_fields is True returns x,y,z values of the plot.
         """
-        assert pol == 'co' or pol == 'cx', "Error in BeamCut.plot: pol must be 'co' or 'cx'"
+        if not (pol == 'co' or pol == 'cx'):
+            raise ValueError("Error in BeamCut.plot: pol must be 'co' or 'cx'")
 
         theta = np.deg2rad(np.linspace(self.vini, self.vini + self.vinc * (self.vnum - 1), self.vnum))
         phi = np.deg2rad(np.linspace(0.0, 180.0, self.ncut))

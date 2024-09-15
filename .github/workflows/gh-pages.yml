@@ -53,10 +53,12 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
+      - name: Setup pandoc
+        uses: nikeee/setup-pandoc@v1
+      
       - name: Build Sphinx
         run: |
           cd docs
-          poetry run sphinx-apidoc -f -o . ../
           poetry run make html
 
       - name: Setup Pages
@@ -65,7 +67,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: "./docs/_build/html/"
+          path: "./docs/build/html/"
 
       - name: Deploy to GitHub Pages
         id: deployment

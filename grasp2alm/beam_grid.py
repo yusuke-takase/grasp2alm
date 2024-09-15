@@ -10,7 +10,7 @@ from .beam_polar import BeamPolar
 class BeamGrid:
     """Class to hold the data from a beam grid file of GRASP.
 
-    Attributes:
+    Args:
         header (str): Record with identification text.
         ktype (int): Specifies type of file format.
         nset (int): Number of field sets or beams.
@@ -29,15 +29,6 @@ class BeamGrid:
         freq (float): Frequency.
         frequnit (str): Frequency unit.
         amp (np.ndarray): Array of complex amplitudes [theta, phi].
-
-    Methods:
-        __init__(self, filepath): Initialize the BeamGrid object.
-        __post_init__(self): Read and parse the beam grid file.
-        to_polar(self, copol_axis="x"): Convert the beam grid
-            to polar coordinates.
-        plot(self, pol='co', color_resol=20, figsize=6, cmap="inferno",
-            return_fields=False): Plot the beam grid.
-
     """
     header: str = ""
     ktype: int = 0
@@ -60,12 +51,18 @@ class BeamGrid:
 
 
     def __init__(self, filepath):
+        """
+        Initialize the BeamGrid object.
+        """
         super().__init__()
         self.filepath = filepath
         self.filename = filepath.split("/")[-1]
         self.__post_init__()
 
     def __post_init__(self):
+        """
+        Read and parse the beam grid file.
+        """
         if not self.filepath.endswith(".grd"):
             raise ValueError("Error in BeamGrid.__post_init__: The file is not a GRASP grid file.")
         with open(self.filepath, "r") as fi:
@@ -77,10 +74,11 @@ class BeamGrid:
                     self.frequnit = line.split("[")[1].split("]")[0]
                     self.freq = float(fi.readline().strip())
                 else:
-                    self.header += "\n" + line
+                    self.header += line[:-1] + '\n'
 
             self.ktype = int(fi.readline())
-            assert self.ktype == 1, "Unknown Grasp grid format, ktype != 1"
+            if not self.ktype == 1:
+                raise ValueError("Unknown Grasp grid format, ktype != 1")
 
             line = fi.readline().split()
             self.nset  = int(line[0])
@@ -127,6 +125,8 @@ class BeamGrid:
 
                 for i in range(is_val, in_val+1):
                     line = fi.readline().split()
+                    if any(np.isnan( list(map(float,line))) ):
+                        raise ValueError("Encountered a NaN value in Amplitude. Please check your input.")
                     self.amp[0, i-1, j] = float(line[0]) + float(line[1]) * 1j
                     self.amp[1, i-1, j] = float(line[2]) + float(line[3]) * 1j
 
@@ -143,18 +143,21 @@ class BeamGrid:
         Returns:
             BeamPolar: The beam grid in polar coordinates.
 
-
         Raises:
             ValueError: If the beam is not in the supported GRASP grid format.
 
         """
         copol_axis = copol_axis.lower()
-        assert self.ncomp == 2, "Error in BeamGrid.to_polar: beam is not in linear 'co' and 'cx' components"
-
-        assert self.igrid == 7, "Error in BeamGrid.to_polar: beam is not on theta-phi grid"
-        assert abs(self.xs) <= 1e-5, "Error in BeamGrid.to_polar: phi coordinates does not start at zero"
-        assert abs(self.xe - self.xs - 360.0) <= 1e-5, "Error in BeamGrid.to_polar: phi range is not 360 degrees"
-        assert copol_axis in ["x", "y"], "Error in BeamGrid.to_polar: copol_axis must be 'x' or 'y'"
+        if not self.ncomp == 2:
+            raise ValueError("Error in BeamGrid.to_polar: beam is not in linear 'co' and 'cx' components")
+        if not self.igrid == 7:
+            raise ValueError("Error in BeamGrid.to_polar: beam is not on theta-phi grid")
+        if not abs(self.xs) <= 1e-5:
+            raise ValueError("Error in BeamGrid.to_polar: phi coordinates does not start at zero")
+        if not abs(self.xe - self.xs - 360.0) <= 1e-5:
+            raise ValueError("Error in BeamGrid.to_polar: phi range is not 360 degrees")
+        if copol_axis not in ["x", "y"]:
+            raise ValueError("Error in BeamGrid.to_polar: copol_axis must be 'x' or 'y'")
 
         nphi = self.nx - 1
         ntheta = self.ny
@@ -210,17 +213,14 @@ class BeamGrid:
             cmap (str): The colormap to use for the plot.
             return_fields (bool): Whether to return the x, y, and z values.
 
-        Returns:
-        If return_fields is False:
-            None
-
-        If return_fields is True:
-            x (ndarray): The x values of the plot.
-            y (ndarray): The y values of the plot.
-            z (ndarray): The z values of the plot.
+        Returns
+        -------
+            None: if return_fields is False (default).
+            (ndarray,ndarray,ndarray): if return_fields is True returns x,y,z values of the plot.
 
         """
-        assert pol == 'co' or pol == 'cx', "Error in BeamGrid.plot: pol must be 'co' or 'cx'"
+        if not (pol == 'co' or pol == 'cx'):
+            raise ValueError("Error in BeamGrid.plot: pol must be 'co' or 'cx'")
         dx = (self.xe - self.xs) / (self.nx - 1)
         dy = (self.ye - self.ys) / (self.ny - 1)
 
