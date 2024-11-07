@@ -26,7 +26,8 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.intersphinx',
     'nbsphinx',
-    'sphinx.ext.autosectionlabel'
+    'sphinx.ext.autosectionlabel',
+    'pydata_sphinx_theme'
 ]
 
 autosummary_generate = True
