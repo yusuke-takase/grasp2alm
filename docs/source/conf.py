@@ -29,7 +29,7 @@ extensions = [
     'sphinx.ext.autosectionlabel'
 ]
 
-autosummary_generate = True 
+autosummary_generate = True
 autosummary_imported_members = True
 autosectionlabel_prefix_document = True
 autoclass_content = "class"
@@ -40,5 +40,6 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'alabaster'
+#html_theme = 'alabaster'
+html_theme = 'pydata_sphinx_theme'
 html_static_path = ['_static']
