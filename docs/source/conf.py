@@ -8,8 +8,8 @@ import sys
 import toml
 
 module_path = os.path.abspath(os.path.join('..','..','grasp2alm'))
-pyproject_path = os.path.abspath(os.path.join('..','..','pyproject.toml'))
 sys.path.insert(0, module_path)
+pyproject_path = os.path.abspath(os.path.join('..','..','pyproject.toml'))
 
 with open(pyproject_path, 'r') as f:
     pyproject_data = toml.load(f)
@@ -19,8 +19,8 @@ with open(pyproject_path, 'r') as f:
 
 project = 'grasp2alm'
 copyright = '2024, Yusuke Takase'
-author = pyproject_data['tool']['poetry']['authors']
-release = pyproject_data['tool']['poetry']['version']
+author = "Yusuke Takase"
+#release = pyproject_data['tool']['poetry']['version']
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
