@@ -1,11 +1,10 @@
 # -*- encoding: utf-8 -*-
-import os
-import toml
 
-pyproject_path = os.path.abspath(os.path.join('..',"grasp2alm",'pyproject.toml'))
-with open(pyproject_path, 'r') as f:
-    pyproject_data = toml.load(f)
-
-__version__ = pyproject_data['tool']['poetry']['version']
-__author__ = pyproject_data['tool']['poetry']['authors']
+__version__ = "0.3.0"
+__author__ = [
+    "Yusuke Takase <takase_y@s.okayama-u.ac.jp>",
+    "Matteo Baratto <matteo.baratto@unimi.it>",
+    "Maurizio Tomasi <maurizio.tomasi@unimi.it>",
+    "Yuya Nagano <nagano_y@s.okayama-u.ac.jp>",
+    ]
 __original_url__ = "https://github.com/zonca/planck-levelS/tree/master/Beam"
