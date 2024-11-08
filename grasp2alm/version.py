@@ -2,7 +2,7 @@
 import os
 import toml
 
-pyproject_path = os.path.join(os.path.join('..','pyproject.toml'))
+pyproject_path = os.path.abspath(os.path.join('..',"grasp2alm",'pyproject.toml'))
 with open(pyproject_path, 'r') as f:
     pyproject_data = toml.load(f)
 
