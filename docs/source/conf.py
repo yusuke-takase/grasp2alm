@@ -16,7 +16,6 @@ sys.path.insert(0, module_path)
 project = 'grasp2alm'
 copyright = '2024, Yusuke Takase'
 author = "Yusuke Takase"
-#release = pyproject_data['tool']['poetry']['version']
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
