@@ -43,6 +43,7 @@ scipy = "^1.13.0"
 pytest = "^8.1.1"
 nbsphinx = "^0.9.4"
 pydata-sphinx-theme = "^0.16.0"
+toml = "^0.10.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
