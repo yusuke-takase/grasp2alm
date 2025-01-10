@@ -5,6 +5,7 @@ from grasp2alm import BeamGrid, BeamCut, grasp2alm
 import numpy as np
 from pathlib import Path
 
+
 class TestGrasp2Alm(unittest.TestCase):
     def test_grasp2alm_with_gridfile(self):
         file = Path(__file__).parent / "beam_files" / "test.grd"
@@ -29,5 +30,5 @@ class TestGrasp2Alm(unittest.TestCase):
         self.assertTrue(np.array_equal(blm1, blm2), "blm1 and blm2 are not equal")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

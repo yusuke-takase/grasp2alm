@@ -5,9 +5,10 @@ import numpy as np
 import healpy as hp
 import grasp2alm as g2a
 
+
 class TestBeamCut(unittest.TestCase):
     """
-    Testing the functionality of converting a gaussian beam 
+    Testing the functionality of converting a gaussian beam
     to alm coefficients using the grasp2alm function.
 
     Methods:
@@ -36,16 +37,18 @@ class TestBeamCut(unittest.TestCase):
 
         self.pol: bool = True
         self.nside: int = 1024
-        self.lmax: int = 2*self.nside
+        self.lmax: int = 2 * self.nside
         self.mmax: int = 2
 
-        fwhm_deg: float = np.rad2deg(hp.nside2resol(self.nside))*50
-        beam_sigma: float = np.deg2rad(fwhm_deg)/(2.0*np.sqrt(2.0*np.log(2.0)))
-        amplitude: float = 1/(2*np.pi*beam_sigma*beam_sigma)
+        fwhm_deg: float = np.rad2deg(hp.nside2resol(self.nside)) * 50
+        beam_sigma: float = np.deg2rad(fwhm_deg) / (2.0 * np.sqrt(2.0 * np.log(2.0)))
+        amplitude: float = 1 / (2 * np.pi * beam_sigma * beam_sigma)
 
         gauss = g2a.BeamGauss(amplitude, fwhm_deg)
-        gauss.write2cut(self.path_cut, -fwhm_deg*2, 30001, 40)
-        gauss.write2thetaphigrid(self.path_grid, 0.0, 0.0, 360.0, fwhm_deg*2, 60, 30001)
+        gauss.write2cut(self.path_cut, -fwhm_deg * 2, 30001, 40)
+        gauss.write2thetaphigrid(
+            self.path_grid, 0.0, 0.0, 360.0, fwhm_deg * 2, 60, 30001
+        )
 
         self.ideal_alm = gauss.get_alm(self.lmax, self.mmax, self.pol)
 
@@ -72,12 +75,12 @@ class TestBeamCut(unittest.TestCase):
         test_alm = g2a.grasp2alm(
             self.path_cut,
             self.nside,
-            interp_method='pchip',
+            interp_method="pchip",
             copol_axis="y",
             lmax=self.lmax,
             mmax=self.mmax,
             pol=self.pol,
-            use_pixel_weights=True
+            use_pixel_weights=True,
         )
 
         # Get the indices for T, E and B mode coefficients
@@ -86,22 +89,37 @@ class TestBeamCut(unittest.TestCase):
         index_B = hp.Alm.getidx(self.lmax, np.arange(self.lmax), 2)
 
         # Assert that the alm coefficients match within a tolerance of 1e-3
-        self.assertTrue(np.allclose(
-            test_alm[0][index_T],  # T mode coefficients from the generated beam cut file
-            self.ideal_alm[0][index_T],  # T mode coefficients from the ideal Gaussian beam
-            atol=1e-3  # Tolerance for the comparison
+        self.assertTrue(
+            np.allclose(
+                test_alm[0][
+                    index_T
+                ],  # T mode coefficients from the generated beam cut file
+                self.ideal_alm[0][
+                    index_T
+                ],  # T mode coefficients from the ideal Gaussian beam
+                atol=1e-3,  # Tolerance for the comparison
             )
         )
-        self.assertTrue(np.allclose(
-            test_alm[1][index_E],  # E mode coefficients from the generated beam cut file
-            self.ideal_alm[1][index_E],  # E mode coefficients from the ideal Gaussian beam
-            atol=1e-3  # Tolerance for the comparison
+        self.assertTrue(
+            np.allclose(
+                test_alm[1][
+                    index_E
+                ],  # E mode coefficients from the generated beam cut file
+                self.ideal_alm[1][
+                    index_E
+                ],  # E mode coefficients from the ideal Gaussian beam
+                atol=1e-3,  # Tolerance for the comparison
             )
         )
-        self.assertTrue(np.allclose(
-            test_alm[2][index_B],  # B mode coefficients from the generated beam cut file
-            self.ideal_alm[2][index_B],  # B mode coefficients from the ideal Gaussian beam
-            atol=1e-3  # Tolerance for the comparison
+        self.assertTrue(
+            np.allclose(
+                test_alm[2][
+                    index_B
+                ],  # B mode coefficients from the generated beam cut file
+                self.ideal_alm[2][
+                    index_B
+                ],  # B mode coefficients from the ideal Gaussian beam
+                atol=1e-3,  # Tolerance for the comparison
             )
         )
 
@@ -119,12 +137,12 @@ class TestBeamCut(unittest.TestCase):
         test_alm = g2a.grasp2alm(
             self.path_grid,
             self.nside,
-            interp_method='cubic',
+            interp_method="cubic",
             copol_axis="y",
             lmax=self.lmax,
             mmax=self.mmax,
             pol=self.pol,
-            use_pixel_weights=True
+            use_pixel_weights=True,
         )
 
         # Get the indices for T, E and B mode coefficients
@@ -133,24 +151,40 @@ class TestBeamCut(unittest.TestCase):
         index_B = hp.Alm.getidx(self.lmax, np.arange(self.lmax), 2)
 
         # Assert that the alm coefficients match within a tolerance of 1e-3
-        self.assertTrue(np.allclose(
-            test_alm[0][index_T],  # T mode coefficients from the generated beam grid file
-            self.ideal_alm[0][index_T],  # T mode coefficients from the ideal Gaussian beam
-            atol=1e-3  # Tolerance for the comparison
+        self.assertTrue(
+            np.allclose(
+                test_alm[0][
+                    index_T
+                ],  # T mode coefficients from the generated beam grid file
+                self.ideal_alm[0][
+                    index_T
+                ],  # T mode coefficients from the ideal Gaussian beam
+                atol=1e-3,  # Tolerance for the comparison
             )
         )
-        self.assertTrue(np.allclose(
-            test_alm[1][index_E],  # E mode coefficients from the generated beam grid file
-            self.ideal_alm[1][index_E],  # E mode coefficients from the ideal Gaussian beam 
-            atol=1e-3  # Tolerance for the comparison
+        self.assertTrue(
+            np.allclose(
+                test_alm[1][
+                    index_E
+                ],  # E mode coefficients from the generated beam grid file
+                self.ideal_alm[1][
+                    index_E
+                ],  # E mode coefficients from the ideal Gaussian beam
+                atol=1e-3,  # Tolerance for the comparison
             )
         )
-        self.assertTrue(np.allclose(
-            test_alm[2][index_B],  # B mode coefficients from the generated beam grid file
-            self.ideal_alm[2][index_B],  # B mode coefficients from the ideal Gaussian beam
-            atol=1e-3  # Tolerance for the comparison
+        self.assertTrue(
+            np.allclose(
+                test_alm[2][
+                    index_B
+                ],  # B mode coefficients from the generated beam grid file
+                self.ideal_alm[2][
+                    index_B
+                ],  # B mode coefficients from the ideal Gaussian beam
+                atol=1e-3,  # Tolerance for the comparison
             )
         )
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
