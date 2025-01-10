@@ -4,11 +4,7 @@ from .beam_grid import BeamGrid
 from .beam_cut import BeamCut
 from .beam_polar import BeamPolar
 from .beam_map import BeamMap
-from .beam2alm import (
-    grasp2alm,
-    grasp2alm_lsq
-)
-from .beam_gauss import BeamGauss
+from .beam2alm import grasp2alm
 
 from .version import (
     __author__,
@@ -32,6 +28,5 @@ __all__ = [
     "BeamMap",
     # beam2alm.py
     "grasp2alm",
-    "grasp2alm_lsq"
-    "BeamGauss"
+    "grasp2alm_lsq" "BeamGauss",
 ]

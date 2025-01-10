@@ -6,5 +6,5 @@ __author__ = [
     "Matteo Baratto <matteo.baratto@unimi.it>",
     "Maurizio Tomasi <maurizio.tomasi@unimi.it>",
     "Yuya Nagano <nagano_y@s.okayama-u.ac.jp>",
-    ]
+]
 __original_url__ = "https://github.com/zonca/planck-levelS/tree/master/Beam"

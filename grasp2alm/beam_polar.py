@@ -8,6 +8,7 @@ import healpy as hp
 from .beam_map import BeamMap
 from scipy.interpolate import RegularGridInterpolator
 
+
 @dataclass
 class BeamPolar:
     """Represents beams of Stokes parameters.
@@ -33,8 +34,8 @@ class BeamPolar:
         ntheta: int,
         theta_rad_min: float,
         theta_rad_max: float,
-        filename: str
-        ):
+        filename: str,
+    ):
         self.nphi = nphi
         self.ntheta = ntheta
         self.theta_rad_min = theta_rad_min
@@ -72,11 +73,17 @@ class BeamPolar:
         q = self.stokes[1, :, valid_theta_indices]
         u = self.stokes[2, :, valid_theta_indices]
 
-        beam_copy.stokes[1, :, valid_theta_indices] =  q * cos2phi[None, :] + u * sin2phi[None, :]
-        beam_copy.stokes[2, :, valid_theta_indices] = -q * sin2phi[None, :] + u * cos2phi[None, :]
+        beam_copy.stokes[1, :, valid_theta_indices] = (
+            q * cos2phi[None, :] + u * sin2phi[None, :]
+        )
+        beam_copy.stokes[2, :, valid_theta_indices] = (
+            -q * sin2phi[None, :] + u * cos2phi[None, :]
+        )
         return beam_copy
 
-    def to_map(self, nside, nstokes=3, outOftheta_val=hp.UNSEEN, interp_method="linear"):
+    def to_map(
+        self, nside, nstokes=3, outOftheta_val=hp.UNSEEN, interp_method="linear"
+    ):
         """Convert the BeamPolar to a BeamMap.
 
         Args:
@@ -94,16 +101,19 @@ class BeamPolar:
         theta, phi = hp.pix2ang(nside, np.arange(npix))
         beam_polar = self.stokes_rotate()
 
-
         theta = theta[theta <= self.theta_rad_max]
-        phi = phi[:len(theta)]
+        phi = phi[: len(theta)]
 
         beam_map = np.full((nstokes, npix), outOftheta_val, dtype=float)
         for s in range(nstokes):
-            beam_map[s, :len(theta)] = beam_polar._get_interp_val(theta, phi, s, interp_method)
+            beam_map[s, : len(theta)] = beam_polar._get_interp_val(
+                theta, phi, s, interp_method
+            )
         return BeamMap(beam_map)
 
-    def _get_interp_val(self, theta:np.ndarray, phi:np.ndarray, s:int, interp_method="linear"):
+    def _get_interp_val(
+        self, theta: np.ndarray, phi: np.ndarray, s: int, interp_method="linear"
+    ):
         """Calculate the value of the beam at a given theta, phi, and Stokes parameter.
         The value is interpolated from `BeamPolar` by a given theta and phi.
 
@@ -122,22 +132,23 @@ class BeamPolar:
         # To make a periodicity in phi, we add the first phi value to the end
         phi_grid = np.linspace(0.0, 2.0 * np.pi, self.nphi + 1)
         # To make a periodicity in stokes, we add the first stokes value to the end
-        stokes_extended = np.concatenate([self.stokes[s], self.stokes[s][:1,:]], axis=0)
+        stokes_extended = np.concatenate(
+            [self.stokes[s], self.stokes[s][:1, :]], axis=0
+        )
 
         # Create a 2D interpolator for the beam stokes values
         interpolator = RegularGridInterpolator(
-            (phi_grid, theta_grid),
-            stokes_extended,
-            method=interp_method
-            )
+            (phi_grid, theta_grid), stokes_extended, method=interp_method
+        )
 
         # Use the interpolator to get the beam values at the given theta and phi
         value = interpolator(np.array([phi, theta]).T)
 
         return value
 
-
-    def plot(self, stokes="I", color_resol=20, figsize=6, cmap="inferno", return_fields=False):
+    def plot(
+        self, stokes="I", color_resol=20, figsize=6, cmap="inferno", return_fields=False
+    ):
         """Plot the beam.
 
         Args:
@@ -153,40 +164,42 @@ class BeamPolar:
             (ndarray,ndarray,ndarray): if return_fields is True returns x,y,z values of the plot.
 
         """
-        if stokes.upper() =="I":
+        if stokes.upper() == "I":
             s = 0
-            label=r"$10\log_{10}(I)$ [dBi]"
+            label = r"$10\log_{10}(I)$ [dBi]"
         elif stokes.upper() == "Q":
             s = 1
-            label=r"$10\log_{10}(|Q|)$ [dBi]"
+            label = r"$10\log_{10}(|Q|)$ [dBi]"
         elif stokes.upper() == "U":
             s = 2
-            label=r"$10\log_{10}(|U|)$ [dBi]"
+            label = r"$10\log_{10}(|U|)$ [dBi]"
         elif stokes.upper() == "V":
             s = 3
-            label=r"$10\log_{10}(|V|)$ [dBi]"
+            label = r"$10\log_{10}(|V|)$ [dBi]"
         theta = np.linspace(self.theta_rad_min, self.theta_rad_max, self.ntheta)
         phi = np.linspace(0.0, 2.0 * np.pi, self.nphi)
         theta_grid, phi_grid = np.meshgrid(theta, phi)
 
         x = np.rad2deg(theta_grid * np.cos(phi_grid))
         y = np.rad2deg(theta_grid * np.sin(phi_grid))
-        z = 10*np.log10(np.abs(self.stokes[s]))
+        z = 10 * np.log10(np.abs(self.stokes[s]))
         levels = np.linspace(np.min(z), np.max(z), color_resol)
 
         if not return_fields:
-            plt.figure(figsize=(figsize,figsize))
+            plt.figure(figsize=(figsize, figsize))
             plt.axes().set_aspect("equal")
             plt.title(f"{self.filename} : ${stokes.upper()}$")
             plt.xlabel("Degrees")
             plt.ylabel("Degrees")
-            plt.contourf(x, y, z, levels=levels, cmap=cmap, extend='both')
+            plt.contourf(x, y, z, levels=levels, cmap=cmap, extend="both")
             plt.colorbar(orientation="vertical", label=label)
         else:
             return (x, y, self.stokes[s])
 
 
-def _get_interp_val_from_polar_original(beam:BeamPolar, theta:np.ndarray, phi:np.ndarray, s:int):
+def _get_interp_val_from_polar_original(
+    beam: BeamPolar, theta: np.ndarray, phi: np.ndarray, s: int
+):
     """Calculate the value of the beam at a given theta, phi, and Stokes parameter.
     The value is interpolated from `BeamPolar` by a given theta and phi.
 
@@ -221,6 +234,9 @@ def _get_interp_val_from_polar_original(beam:BeamPolar, theta:np.ndarray, phi:np
     ph1 = iph1 * phi_step
     wph = 1.0 - (phi - ph1) / phi_step
 
-    value = wth * (wph * beam.stokes[s, iph1, ith1] + (1.0 - wph) * beam.stokes[s, iph2, ith1]) + \
-            (1.0 - wth) * (wph * beam.stokes[s, iph1, ith2] + (1.0 - wph) * beam.stokes[s, iph2, ith2])
+    value = wth * (
+        wph * beam.stokes[s, iph1, ith1] + (1.0 - wph) * beam.stokes[s, iph2, ith1]
+    ) + (1.0 - wth) * (
+        wph * beam.stokes[s, iph1, ith2] + (1.0 - wph) * beam.stokes[s, iph2, ith2]
+    )
     return value

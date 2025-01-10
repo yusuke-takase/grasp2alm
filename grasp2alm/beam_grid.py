@@ -1,10 +1,11 @@
 # -*- encoding: utf-8 -*-
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 import numpy as np
 import matplotlib.pyplot as plt
 import warnings
 from .beam_polar import BeamPolar
+
 
 @dataclass
 class BeamGrid:
@@ -30,6 +31,7 @@ class BeamGrid:
         frequnit (str): Frequency unit.
         amp (np.ndarray): Array of complex amplitudes [theta, phi].
     """
+
     header: str = ""
     ktype: int = 0
     nset: int = 0
@@ -49,7 +51,6 @@ class BeamGrid:
     frequnit: str = ""
     amp: np.ndarray = None
 
-
     def __init__(self, filepath):
         """
         Initialize the BeamGrid object.
@@ -64,7 +65,9 @@ class BeamGrid:
         Read and parse the beam grid file.
         """
         if not self.filepath.endswith(".grd"):
-            raise ValueError("Error in BeamGrid.__post_init__: The file is not a GRASP grid file.")
+            raise ValueError(
+                "Error in BeamGrid.__post_init__: The file is not a GRASP grid file."
+            )
         with open(self.filepath, "r") as fi:
             while True:
                 line = fi.readline()
@@ -74,14 +77,14 @@ class BeamGrid:
                     self.frequnit = line.split("[")[1].split("]")[0]
                     self.freq = float(fi.readline().strip())
                 else:
-                    self.header += line[:-1] + '\n'
+                    self.header += line[:-1] + "\n"
 
             self.ktype = int(fi.readline())
             if not self.ktype == 1:
                 raise ValueError("Unknown Grasp grid format, ktype != 1")
 
             line = fi.readline().split()
-            self.nset  = int(line[0])
+            self.nset = int(line[0])
             self.icomp = int(line[1])
             self.ncomp = int(line[2])
             self.igrid = int(line[3])
@@ -103,9 +106,15 @@ class BeamGrid:
             self.xe = float(line[2])
             self.ye = float(line[3])
 
-            beam_solid_angle_rad = (np.cos(np.deg2rad(self.ys)) - np.cos(np.deg2rad(self.ye))) * (np.deg2rad(self.xe) - np.deg2rad(self.xs))
-            if not np.isclose(beam_solid_angle_rad, 2.0*np.pi) and not np.isclose(beam_solid_angle_rad, 4.0*np.pi):
-                warnings.warn(f"Warning: beam solid angle is not 2pi or 4pi because BeamGrid has xs={self.xs}, xe={self.xe}, ys={self.ys} and ye={self.ye}. The header should be checked.")
+            beam_solid_angle_rad = (
+                np.cos(np.deg2rad(self.ys)) - np.cos(np.deg2rad(self.ye))
+            ) * (np.deg2rad(self.xe) - np.deg2rad(self.xs))
+            if not np.isclose(beam_solid_angle_rad, 2.0 * np.pi) and not np.isclose(
+                beam_solid_angle_rad, 4.0 * np.pi
+            ):
+                warnings.warn(
+                    f"Warning: beam solid angle is not 2pi or 4pi because BeamGrid has xs={self.xs}, xe={self.xe}, ys={self.ys} and ye={self.ye}. The header should be checked."
+                )
 
             line = fi.readline().split()
             self.nx = int(line[0])
@@ -123,13 +132,14 @@ class BeamGrid:
                     is_val = 1
                     in_val = self.nx
 
-                for i in range(is_val, in_val+1):
+                for i in range(is_val, in_val + 1):
                     line = fi.readline().split()
-                    if any(np.isnan( list(map(float,line))) ):
-                        raise ValueError("Encountered a NaN value in Amplitude. Please check your input.")
-                    self.amp[0, i-1, j] = float(line[0]) + float(line[1]) * 1j
-                    self.amp[1, i-1, j] = float(line[2]) + float(line[3]) * 1j
-
+                    if any(np.isnan(list(map(float, line)))):
+                        raise ValueError(
+                            "Encountered a NaN value in Amplitude. Please check your input."
+                        )
+                    self.amp[0, i - 1, j] = float(line[0]) + float(line[1]) * 1j
+                    self.amp[1, i - 1, j] = float(line[2]) + float(line[3]) * 1j
 
     def to_polar(self, copol_axis="x"):
         """Converts beam in polar grid format into Stokes
@@ -149,15 +159,23 @@ class BeamGrid:
         """
         copol_axis = copol_axis.lower()
         if not self.ncomp == 2:
-            raise ValueError("Error in BeamGrid.to_polar: beam is not in linear 'co' and 'cx' components")
+            raise ValueError(
+                "Error in BeamGrid.to_polar: beam is not in linear 'co' and 'cx' components"
+            )
         if not self.igrid == 7:
-            raise ValueError("Error in BeamGrid.to_polar: beam is not on theta-phi grid")
+            raise ValueError(
+                "Error in BeamGrid.to_polar: beam is not on theta-phi grid"
+            )
         if not abs(self.xs) <= 1e-5:
-            raise ValueError("Error in BeamGrid.to_polar: phi coordinates does not start at zero")
+            raise ValueError(
+                "Error in BeamGrid.to_polar: phi coordinates does not start at zero"
+            )
         if not abs(self.xe - self.xs - 360.0) <= 1e-5:
             raise ValueError("Error in BeamGrid.to_polar: phi range is not 360 degrees")
         if copol_axis not in ["x", "y"]:
-            raise ValueError("Error in BeamGrid.to_polar: copol_axis must be 'x' or 'y'")
+            raise ValueError(
+                "Error in BeamGrid.to_polar: copol_axis must be 'x' or 'y'"
+            )
 
         nphi = self.nx - 1
         ntheta = self.ny
@@ -168,20 +186,21 @@ class BeamGrid:
             print("Warning: swapping theta direction")
             theta_rad_min = np.deg2rad(self.ye)
             theta_rad_max = np.deg2rad(self.ys)
-        beam_polar = BeamPolar(nphi, ntheta, theta_rad_min, theta_rad_max, self.filename)
+        beam_polar = BeamPolar(
+            nphi, ntheta, theta_rad_min, theta_rad_max, self.filename
+        )
 
         if self.icomp == 3:
             if copol_axis == "x":
                 sign = -1
             elif copol_axis == "y":
-
                 sign = 1
             else:
                 raise ValueError("Error in bm_grid2polar: unknown value for copol")
             c = self.amp[0, :-1, :]
             x = self.amp[1, :-1, :]
-            modc2 = np.abs(c)**2
-            modx2 = np.abs(x)**2
+            modc2 = np.abs(c) ** 2
+            modx2 = np.abs(x) ** 2
             acaxs = c * np.conj(x)
             beam_polar.stokes[0, :, :] = modc2 + modx2
             beam_polar.stokes[1, :, :] = sign * (modc2 - modx2)
@@ -191,7 +210,7 @@ class BeamGrid:
                 beam_polar.stokes = beam_polar.stokes[:, :, ::-1]
         elif self.icomp == 9:
             c = self.amp[1, :-1, :]
-            modc2 = np.abs(c)**2
+            modc2 = np.abs(c) ** 2
             beam_polar.stokes[0, :, :] = modc2
             beam_polar.stokes[1, :, :] = 0.0
             beam_polar.stokes[2, :, :] = 0.0
@@ -199,11 +218,14 @@ class BeamGrid:
             if swaptheta:
                 beam_polar.stokes = beam_polar.stokes[:, :, ::-1]
         else:
-            raise ValueError("Error in grid2square: beam is not in supported grid sub-format")
+            raise ValueError(
+                "Error in grid2square: beam is not in supported grid sub-format"
+            )
         return beam_polar
 
-
-    def plot(self, pol='co', color_resol=20, figsize=6, cmap="inferno", return_fields=False):
+    def plot(
+        self, pol="co", color_resol=20, figsize=6, cmap="inferno", return_fields=False
+    ):
         """Plot the beam pattern.
 
         Args:
@@ -219,7 +241,7 @@ class BeamGrid:
             (ndarray,ndarray,ndarray): if return_fields is True returns x,y,z values of the plot.
 
         """
-        if not (pol == 'co' or pol == 'cx'):
+        if not (pol == "co" or pol == "cx"):
             raise ValueError("Error in BeamGrid.plot: pol must be 'co' or 'cx'")
         dx = (self.xe - self.xs) / (self.nx - 1)
         dy = (self.ye - self.ys) / (self.ny - 1)
@@ -231,21 +253,21 @@ class BeamGrid:
         phi_grid, theta_grid = np.deg2rad(np.meshgrid(xgrid, ygrid))
         x = np.rad2deg(theta_grid * np.cos(phi_grid))
         y = np.rad2deg(theta_grid * np.sin(phi_grid))
-        if pol == 'co':
-            z = np.real(self.amp[0])**2 + np.imag(self.amp[0])**2
-            dBz = 10*np.log10(z)
-        elif pol == 'cx':
-            z = np.real(self.amp[1])**2 + np.imag(self.amp[1])**2
-            dBz = 10*np.log10(z)
+        if pol == "co":
+            z = np.real(self.amp[0]) ** 2 + np.imag(self.amp[0]) ** 2
+            dBz = 10 * np.log10(z)
+        elif pol == "cx":
+            z = np.real(self.amp[1]) ** 2 + np.imag(self.amp[1]) ** 2
+            dBz = 10 * np.log10(z)
 
         levels = np.linspace(np.min(dBz), np.max(dBz), color_resol)
         if not return_fields:
-            plt.figure(figsize=(figsize,figsize))
+            plt.figure(figsize=(figsize, figsize))
             plt.axes().set_aspect("equal")
             plt.title(f"{self.filename} : {pol}")
             plt.xlabel("Degrees")
             plt.ylabel("Degrees")
-            plt.contourf(x, y, dBz.T, levels=levels, cmap=cmap, extend='both')
+            plt.contourf(x, y, dBz.T, levels=levels, cmap=cmap, extend="both")
             plt.colorbar(orientation="vertical", label="dBi")
         else:
             return (x, y, z.T)

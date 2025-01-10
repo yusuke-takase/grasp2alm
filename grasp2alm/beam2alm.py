@@ -1,16 +1,16 @@
 # -*- encoding: utf-8 -*-
 
-import numpy as np
 import healpy as hp
 from .beam_grid import BeamGrid
 from .beam_cut import BeamCut
+
 
 def grasp2alm(
     filepath,
     nside,
     outOftheta_val=hp.UNSEEN,
     interp_method="linear",
-    copol_axis='x',
+    copol_axis="x",
     lmax=None,
     mmax=None,
     iter=3,
@@ -19,7 +19,7 @@ def grasp2alm(
     datapath=None,
     gal_cut=0,
     use_pixel_weights=False,
-    ):
+):
     """Convert a GRASP file to a spherical harmonic coefficients of beam map.
 
     Args:
@@ -66,10 +66,8 @@ def grasp2alm(
         raise ValueError("Error in grasp2alm: unknown file format")
     beam_polar = beam.to_polar(copol_axis)
     beam_map = beam_polar.to_map(
-        nside,
-        outOftheta_val=outOftheta_val,
-        interp_method=interp_method
-        )
+        nside, outOftheta_val=outOftheta_val, interp_method=interp_method
+    )
     alm = beam_map.to_alm(
         lmax=lmax,
         mmax=mmax,
@@ -78,9 +76,10 @@ def grasp2alm(
         use_weights=use_weights,
         datapath=datapath,
         gal_cut=gal_cut,
-        use_pixel_weights=use_pixel_weights
-        )
+        use_pixel_weights=use_pixel_weights,
+    )
     return alm
+
 
 def grasp2alm_lsq(
     filepath,
@@ -89,11 +88,11 @@ def grasp2alm_lsq(
     mmax,
     outOftheta_val=hp.UNSEEN,
     interp_method="linear",
-    copol_axis='x',
+    copol_axis="x",
     pol=True,
     tol=1e-10,
-    maxiter=20
-    ):
+    maxiter=20,
+):
     """Convert a GRASP file to a spherical harmonic coefficients of beam map by using healpy.map2alm_lsq.
 
     Args:
@@ -134,15 +133,7 @@ def grasp2alm_lsq(
         raise ValueError("Error in grasp2alm: unknown file format")
     beam_polar = beam.to_polar(copol_axis)
     beam_map = beam_polar.to_map(
-        nside,
-        outOftheta_val=outOftheta_val,
-        interp_method=interp_method
-        )
-    alm = beam_map.to_alm_lsq(
-        lmax,
-        mmax,
-        pol=pol,
-        tol=tol,
-        maxiter=maxiter
-        )
+        nside, outOftheta_val=outOftheta_val, interp_method=interp_method
+    )
+    alm = beam_map.to_alm_lsq(lmax, mmax, pol=pol, tol=tol, maxiter=maxiter)
     return alm

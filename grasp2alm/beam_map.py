@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
-import numpy as np
 import healpy as hp
+
 
 class BeamMap:
     """Represents a beam map.
@@ -25,7 +25,7 @@ class BeamMap:
         datapath=None,
         gal_cut=0,
         use_pixel_weights=False,
-        ):
+    ):
         """Converts the beam map to spherical harmonic coefficients.
 
         Args:
@@ -57,8 +57,10 @@ class BeamMap:
 
         """
 
-        if not self.map.shape[0] <=3:
-            raise ValueError("Error in BeamMap.to_alm: map has more than 3 Stokes parameters")
+        if not self.map.shape[0] <= 3:
+            raise ValueError(
+                "Error in BeamMap.to_alm: map has more than 3 Stokes parameters"
+            )
 
         alm = hp.map2alm(
             self.map,
@@ -69,18 +71,11 @@ class BeamMap:
             use_weights=use_weights,
             datapath=datapath,
             gal_cut=gal_cut,
-            use_pixel_weights=use_pixel_weights
-            )
+            use_pixel_weights=use_pixel_weights,
+        )
         return alm
 
-    def to_alm_lsq(
-        self,
-        lmax,
-        mmax,
-        pol=True,
-        tol=1e-10,
-        maxiter=20
-        ):
+    def to_alm_lsq(self, lmax, mmax, pol=True, tol=1e-10, maxiter=20):
         """Converts the beam map to spherical harmonic coefficients by using healpy.map2alm_lsq.
 
         Args:
@@ -106,15 +101,10 @@ class BeamMap:
 
         """
 
-        if not self.map.shape[0] <=3:
-            raise ValueError("Error in BeamMap.to_alm: map has more than 3 Stokes parameters")
-
-        alm = hp.map2alm_lsq(
-            self.map,
-            lmax,
-            mmax,
-            pol=pol,
-            tol=tol,
-            maxiter=maxiter
+        if not self.map.shape[0] <= 3:
+            raise ValueError(
+                "Error in BeamMap.to_alm: map has more than 3 Stokes parameters"
             )
+
+        alm = hp.map2alm_lsq(self.map, lmax, mmax, pol=pol, tol=tol, maxiter=maxiter)
         return alm
