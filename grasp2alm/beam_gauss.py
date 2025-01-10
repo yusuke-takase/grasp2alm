@@ -128,7 +128,6 @@ class BeamGauss:
             co = np.emath.sqrt(beam.flatten())
             for i in co:
                 file.write(f"{np.real(i)} {np.imag(i)} 0.0 0.0\n")
-
         return grid
 
     def get_alm(self, lmax: int, mmax: int, pol: bool):
@@ -168,5 +167,4 @@ class BeamGauss:
         # Adjust normalization
         blm[1] = -blm[1] * np.sqrt(2.0)
         blm[2] = -blm[2] * np.sqrt(2.0)
-
         return blm
