@@ -1,5 +1,6 @@
 import numpy as np
 import healpy as hp
+from healpy import Alm
 
 
 class BeamGauss:
@@ -26,10 +27,12 @@ class BeamGauss:
         Raises:
             ValueError: If amplitude or fwhm is not a number.
         """
-        if not isinstance(amplitude, (int, float)):
-            raise ValueError("Amplitude must be a number.")
-        if not isinstance(fwhm_deg, (int, float)):
-            raise ValueError("FWHM must be a number.")
+
+        assert (
+            isinstance(amplitude, (int, float)) is True
+        ), "Amplitude must be a number."
+        assert isinstance(fwhm_deg, (int, float)) is True, "FWHM must be a number."
+
         self.amplitude = amplitude
         self.fwhm_deg = fwhm_deg
 
@@ -69,8 +72,7 @@ class BeamGauss:
         phi = np.linspace(0, 180 - 180 / ncut, ncut)
         beam = self.gaussian_beam(theta)
 
-        if not isinstance(path, str):
-            raise ValueError("Path must be a string.")
+        assert isinstance(path, str) is True, "Path must be a string."
         with open(path, "w", encoding="utf-8") as file:
             for j in range(ncut):
                 file.write(header_1)
@@ -117,11 +119,9 @@ class BeamGauss:
         phi = np.linspace(xs, xe, nx, endpoint=False)
         theta = np.linspace(ys, ye, ny, endpoint=False)
         grid = np.deg2rad(np.meshgrid(phi, theta))
-
         beam = self.gaussian_beam(grid[1])
 
-        if not isinstance(path, str):
-            raise ValueError("Path must be a string.")
+        assert isinstance(path, str) is True, "Path must be a string."
         with open(path, "w", encoding="utf-8") as file:
             file.write(header)
             file.write("\n")
@@ -130,7 +130,12 @@ class BeamGauss:
                 file.write(f"{np.real(i)} {np.imag(i)} 0.0 0.0\n")
         return grid
 
-    def get_alm(self, lmax: int, mmax: int, pol: bool):
+    def get_alm(
+        self,
+        lmax: int,
+        mmax: int,
+        pol: bool,
+    ):
         """
         Returns the spherical harmonic coefficients of the Gaussian beam.
 
@@ -143,28 +148,27 @@ class BeamGauss:
             array: The spherical harmonic coefficients of the Gaussian beam.
         """
         ncomp = 3 if pol else 1
-        nval = hp.Alm.getsize(lmax, mmax)
+        nval = Alm.getsize(lmax, mmax)
 
-        if mmax > lmax:
-            raise ValueError("lmax value too small")
+        assert mmax <= lmax, "mmax must be less than or equal to lmax."
 
         blm = np.zeros((ncomp, nval), dtype=np.complex128)
         fwhm_rad = np.deg2rad(self.fwhm_deg)
-        sigmasq = fwhm_rad * fwhm_rad / (8 * np.log(2.0))
+        sigmasq = fwhm_rad**2 / (8.0 * np.log(2.0))
 
-        for ell in range(0, lmax + 1):  # noqa: E741
-            blm[0, hp.Alm.getidx(lmax, ell, 0)] = np.sqrt(
+        for ell in range(0, lmax + 1):
+            blm[0, Alm.getidx(lmax, ell, 0)] = np.sqrt(
                 (2 * ell + 1) / (4.0 * np.pi)
             ) * np.exp(-0.5 * sigmasq * ell * (ell + 1))
 
         if pol:
             for ell in range(2, lmax + 1):
-                blm[1, hp.Alm.getidx(lmax, ell, 2)] = np.sqrt(
+                blm[1, Alm.getidx(lmax, ell, 2)] = np.sqrt(
                     (2 * ell + 1) / (32 * np.pi)
                 ) * np.exp(-0.5 * sigmasq * ell * (ell + 1))
             blm[2] = 1j * blm[1]
 
         # Adjust normalization
-        blm[1] = -blm[1] * np.sqrt(2.0)
-        blm[2] = -blm[2] * np.sqrt(2.0)
+        blm[1] *= -np.sqrt(2.0)
+        blm[2] *= -np.sqrt(2.0)
         return blm
