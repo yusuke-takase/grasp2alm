@@ -22,6 +22,9 @@ class BeamGauss:
         __init__(self, ): Initializes a BeamGauss object.
         write2cut(self, path:str, header_1:str, header_2:str, vnum:int, ncut:int, co): Writes the formatted beam data to the specified path with the provided headers. Each cut contains vnum lines of data.
         write2grid(self,path:str,header:str,beam): Writes the formatted beam data to the specified path with the provided headers. Each cut contains vnum lines of data.
+        gaussian_beam(self, theta: float): Calculates the value of a Gaussian beam at a given angle.
+        get_alm(self, lmax: int, mmax: int, ellipticity: Optional[float] = 1.0, psi_ell_rad: Optional[float] = 0.0, psi_pol_rad: Union[float, None] = 0.0, cross_polar_leakage: Optional[float] = 0.0): Return an array of spherical harmonics :math:`a_{\ell m}` that represents a Gaussian beam
+        get_profile(self, nside): Provide the beam map profile at a given nside.
     """
 
     def __init__(self, fwhm_deg: float, amplitude: float = 1.0):
@@ -150,18 +153,19 @@ class BeamGauss:
         """
         Return an array of spherical harmonics :math:`a_{\ell m}` that represents a Gaussian beam
 
-        :param lmax: The maximum value for :math:`\ell`
-        :param mmax: The maximum range for :math:`m`; usually this is equal to ``lmax``
-        :param ellipticity: The ellipticity of the beam, defined as major axis/minor
-        axis. Default is 1 (circular beam).
-        :param psi_ell_rad: The inclination of the major axis of the ellipse with
-        respect to the x-axis. This is not relevant for cirular beams. Default is 0.
-        :param psi_pol_rad: The polarization of the beam with respect to the x-axis,
-        if None only I beam will be returned. Default is 0 rad.
-        :param cross_polar_leakage: The cross-polar leakage (pure number). Default is 0.
+        Args:
+            lmax (`int`): The maximum value for :math:`\ell`
+            mmax (`int`): The maximum range for :math:`m`; usually this is equal to ``lmax``
+            ellipticity (`float`): The ellipticity of the beam, defined as major axis/minor
+            axis. Default is 1 (circular beam).
+            psi_ell_rad (`float`): The inclination of the major axis of the ellipse with
+            respect to the x-axis. This is not relevant for cirular beams. Default is 0.
+            psi_pol_rad (`float`): The polarization of the beam with respect to the x-axis,
+            if `None` only I beam will be returned. Default is 0 rad.
+            cross_polar_leakage (`float`): The cross-polar leakage (pure number). Default is 0.
 
-        :return:
-        :math:`a_{\ell m}` values (`numpy.ndarray`)
+        Return:
+            :math:`a_{\ell m}` values (`numpy.ndarray`)
         """
         is_elliptical = False if ellipticity == 1.0 else True
 
@@ -266,5 +270,13 @@ class BeamGauss:
         return alm
 
     def get_profile(self, nside):
+        """Provide the beam map profile at a given nside.
+
+        Args:
+            nside (`int`): The nside of the map.
+
+        Returns:
+            `numpy.ndarray`: The beam map.
+        """
         assert hasattr(self, 'alm'), "Please run get_alm() first"
         return hp.alm2map(self.alm, nside)

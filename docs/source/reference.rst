@@ -19,11 +19,12 @@ Classes
 
 .. autosummary::
    :toctree: generated/
-   
+
    grasp2alm.BeamCut
    grasp2alm.BeamGrid
    grasp2alm.BeamPolar
    grasp2alm.BeamMap
+   grasp2alm.BeamGauss
 
 Methods
 -------
@@ -31,7 +32,7 @@ Methods
 .. toctree::
    :maxdepth: 2
 
-.. autosummary:: 
+.. autosummary::
    :toctree: generated/
    :recursive:
 
@@ -44,3 +45,6 @@ Methods
    grasp2alm.BeamPolar.plot
    grasp2alm.BeamMap.to_alm
    grasp2alm.BeamMap.to_alm_lsq
+   grasp2alm.BeamGauss.gaussian_beam
+   grasp2alm.BeamGauss.get_alm
+   grasp2alm.BeamGauss.get_profile

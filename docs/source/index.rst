@@ -20,6 +20,7 @@ Contents:
    grid
    stokes
    mapping
+   gauss_beam
    reference
 
 Changelog
