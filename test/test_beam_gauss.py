@@ -1,5 +1,4 @@
 import unittest
-import os
 from pathlib import Path
 import numpy as np
 from grasp2alm import BeamGauss

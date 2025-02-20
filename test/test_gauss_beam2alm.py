@@ -35,22 +35,33 @@ class TestBeamCut(unittest.TestCase):
         self.path_cut: str = str(Path(__file__).parent / "beam_files" / "beam2alm.cut")
         self.path_grid: str = str(Path(__file__).parent / "beam_files" / "beam2alm.grd")
 
-        self.pol: bool = True
         self.nside: int = 1024
+        self.pol: bool = True
         self.lmax: int = 2 * self.nside
         self.mmax: int = 2
+        self.ellipticity: float = 1.0
+        self.psi_ell_rad: float = 0.0
+        self.psi_pol_rad: float = 0.0
+        self.cross_polar_leakage: float = 0.0
 
         fwhm_deg: float = np.rad2deg(hp.nside2resol(self.nside)) * 50
         beam_sigma: float = np.deg2rad(fwhm_deg) / (2.0 * np.sqrt(2.0 * np.log(2.0)))
         amplitude: float = 1 / (2 * np.pi * beam_sigma * beam_sigma)
 
-        gauss = g2a.BeamGauss(amplitude, fwhm_deg)
+        gauss = g2a.BeamGauss(fwhm_deg=fwhm_deg, amplitude=amplitude)
         gauss.write2cut(self.path_cut, -fwhm_deg * 2, 30001, 40)
         gauss.write2thetaphigrid(
             self.path_grid, 0.0, 0.0, 360.0, fwhm_deg * 2, 60, 30001
         )
 
-        self.ideal_alm = gauss.get_alm(self.lmax, self.mmax, self.pol)
+        self.ideal_alm = gauss.get_alm(
+            self.lmax,
+            self.mmax,
+            self.ellipticity,
+            self.psi_ell_rad,
+            self.psi_pol_rad,
+            self.cross_polar_leakage,
+        )
 
     def tearDown(self):
         """
