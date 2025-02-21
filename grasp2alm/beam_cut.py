@@ -8,20 +8,19 @@ from .beam_polar import BeamPolar
 
 @dataclass
 class BeamCut:
-    """
-    Class to hold the data from a beam cut file of GRASP.
+    """Class to hold the data from a beam cut file of GRASP.
 
     Args:
-        header (str): Record with identification text.
-        vini (float): Initial value.
-        vinc (float): Increment.
-        vnum (int): Number of values in cut.
-        c (np.ndarray): Constant.
-        icomp (int): Polarization control parameter.
-        icut (int): Control parameter of cut.
-        ncomp (int): Number of field components.
-        ncut (int): Number of cuts.
-        amp (np.ndarray): Amplitude.
+        header (`str`): Record with identification text.
+        vini (`float`): Initial value.
+        vinc (`float`): Increment.
+        vnum (`int`): Number of values in cut.
+        c (`numpy.ndarray`): Constant.
+        icomp (`int`): Polarization control parameter.
+        icut (`int`): Control parameter of cut.
+        ncomp (`int`): Number of field components.
+        ncut (`int`): Number of cuts.
+        amp (`numpy.ndarray`): Amplitude.
     """
 
     header: str = ""
@@ -39,6 +38,9 @@ class BeamCut:
     def __init__(self, filepath):
         """
         Initializes a BeamCut object.
+
+        Args:
+            filepath (`str`): The path to the GRASP cut file.
         """
         super().__init__()
         self.filepath = filepath
@@ -46,9 +48,8 @@ class BeamCut:
         self.__post_init__()
 
     def __post_init__(self):
-        """
-        Performs post-initialization tasks.
-        """
+        """Performs post-initialization tasks."""
+
         if not self.filepath.endswith(".cut"):
             raise ValueError(
                 "Error in BeamCut.__post_init__: The file is not a GRASP cut file."
@@ -115,21 +116,20 @@ class BeamCut:
                         self.amp[1, i, cnt] = complex(tmp3, tmp4)
                     cnt += 1
 
-    def to_polar(self, copol_axis="x"):
+    def to_polar(self, copol_axis="x") -> BeamPolar:
         """Converts beam in "cut" format to Stokes parameters
         on a polar grid.  Assumes that cuts are evenly spaced
         in theta. The value of copol specifies the alignment
         of the co-polar basis ('x' or 'y') of the input GRASP file.
 
         Args:
-            copol_axis (str): The axis of copolarization. Must be either 'x' or 'y'.
+            copol_axis (`str`): The axis of copolarization. Must be either 'x' or 'y'.
 
         Returns:
             BeamPolar: The beam in polar coordinates.
 
         Raises:
             ValueError: If the beam is not in the expected format.
-
         """
         copol_axis = copol_axis.lower()
 
@@ -183,10 +183,10 @@ class BeamCut:
         """Plot the beam pattern.
 
         Args:
-            pol (str): The polarization to plot. Must be either 'co' or 'cx'.
-            color_resol (int): The number of color levels in the plot.
-            figsize (int): The size of the figure.
-            cmap (str): The colormap to use for the plot.
+            pol (`str`): The polarization to plot. Must be either 'co' or 'cx'.
+            color_resol (`int`): The number of color levels in the plot.
+            figsize (`int`): The size of the figure.
+            cmap (`str`): The colormap to use for the plot.
             return_fields (bool): Whether to return the x, y, and z values.
 
         Returns

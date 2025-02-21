@@ -14,18 +14,18 @@ class BeamPolar:
     """Represents beams of Stokes parameters.
 
     Type to store Stokes parameters of a beam on a spherical
-    polar(theta-phi) grid. This type is an input to the spherical
+    polar(:math:`\theta`,:math:`\phi`) grid. This type is an input to the spherical
     harmonic transform. Internally, this package uses the
     'Ludwig 3' definition for thepolarisation basis with
-    the co-polar (positive Q) direction aligned with the y-axis.
+    the co-polar (positive :math:`Q`) direction aligned with the y-axis.
 
     Args:
-        nphi (int): Number of phi values.
-        ntheta (int): Number of theta values.
-        theta_rad_min (float): Minimum theta value in radians.
-        theta_rad_max (float): Maximum theta value in radians.
-        stokes (ndarray): Array of shape (4, nphi, ntheta) representing the Stokes parameters (I,Q,U,V).
-        filename (str): Name of the file.
+        nphi (`int`): Number of :math:`\phi` values.
+        ntheta (`int`): Number of :math:`\theta` values.
+        theta_rad_min (`float`): Minimum :math:`\theta` value in radians.
+        theta_rad_max (`float`): Maximum :math:`\theta` value in radians.
+        stokes (`numpy.ndarray`): Array of shape (4, ``nphi``, ``ntheta``) representing the Stokes parameters (:math:`I`,:math:`Q`,:math:`U`,:math:`V`).
+        filename (`str`): Name of the file.
     """
 
     def __init__(
@@ -44,16 +44,16 @@ class BeamPolar:
         self.filename = filename
 
     def stokes_rotate(self):
-        """Rotates Q and U Stokes parameters from the co-cross basis to the polar basis.
-        The Q and U Stokes parameters are usually represented in the
+        """Rotates :math:`Q` and :math:`U` Stokes parameters from the co-cross basis to the polar basis.
+
+        The :math:`Q` and :math:`U` Stokes parameters are usually represented in the
         co-cross basis, where the co-polar direction is aligned with the
         y-axis (consistent with Ludwig 3 convention). For the purposes of
         extracting the spherical harmonic coefficients, it is more useful
-        to represent them in the polar basis. Unlike the original LevelS's method, this function operates on a deepcopy of the input `BeamPolar`,
-        so it does not perform destructive actions.
+        to represent them in the polar basis. Unlike the original LevelS's method, this function operates on a deepcopy of the input :class:`.BeamPolar`, so it does not perform destructive actions.
 
         Returns:
-            BeamPolar: A new instance of BeamPolar with the rotated stokes beam.
+            :class:`.BeamPolar`: A new instance of ``BeamPolar`` with the rotated stokes beam.
 
         """
         beam_copy = copy.deepcopy(self)
@@ -83,18 +83,18 @@ class BeamPolar:
 
     def to_map(
         self, nside, nstokes=3, outOftheta_val=hp.UNSEEN, interp_method="linear"
-    ):
-        """Convert the BeamPolar to a BeamMap.
+    ) -> BeamMap:
+        """Convert the :class:`.BeamPolar` to a :class:`.BeamMap`.
 
         Args:
-            nside (int): The nside parameter for the HEALPix map.
-            nstokes (int): Number of Stokes parameters.
-            outOftheta_val (float): Value to fill outside the valid theta range.
-            interp_method (str): Interpolation method to use. Default is 'linear'.
+            nside (`int`): The nside parameter for the HEALPix map.
+            nstokes (`int`): Number of Stokes parameters.
+            outOftheta_val (`float`): Value to fill outside the valid theta range.
+            interp_method (`str`): Interpolation method to use. Default is 'linear'.
                 Supported are 'linear', 'nearest', 'slinear', 'cubic', 'quintic' and 'pchip'.
 
         Returns:
-            BeamMap: A new instance of BeamMap representing the beam map.
+            :class:`.BeamMap`: A new instance of ``BeamMap`` representing the beam map.
 
         """
         npix = hp.nside2npix(nside)
@@ -114,17 +114,17 @@ class BeamPolar:
     def _get_interp_val(
         self, theta: np.ndarray, phi: np.ndarray, s: int, interp_method="linear"
     ):
-        """Calculate the value of the beam at a given theta, phi, and Stokes parameter.
-        The value is interpolated from `BeamPolar` by a given theta and phi.
+        """Calculate the value of the beam at a given :math:`\theta`, :math:`\phi`, and Stokes parameter.
+        The value is interpolated from `BeamPolar` by a given :math:`\theta` and :math:`\phi`.
 
         Args:
-            theta (float or array-like): The theta value(s) at which to evaluate the beam.
-            phi (float or array-like): The phi value(s) at which to evaluate the beam.
-            s (int): The Stokes parameter index.
-            interp_method (str): Interpolation method to use. Default is 'linear'.
+            theta (`float` or `array-like`): The :math:`\theta` value(s) at which to evaluate the beam.
+            phi (`float` or `array-like`): The :math:`\phi` value(s) at which to evaluate the beam.
+            s (`int`): The Stokes parameter index.
+            interp_method (`str`): Interpolation method to use. Default is 'linear'.
                 Supported are 'linear', 'nearest', 'slinear', 'cubic', 'quintic' and 'pchip'.
         Returns:
-            value (float or array-like): The value(s) of the beam at the given theta, phi, and Stokes parameter.
+            value (`float` or `array-like`): The value(s) of the beam at the given :math:`\theta`, :math:`\phi`, and Stokes parameter.
 
         """
         # Create a grid of theta and phi values
@@ -149,13 +149,13 @@ class BeamPolar:
     def plot(
         self, stokes="I", color_resol=20, figsize=6, cmap="inferno", return_fields=False
     ):
-        """Plot the beam.
+        """Plot the beam profile.
 
         Args:
-            stokes (str): The Stokes parameter to plot. Can be "I", "Q", "U", or "V".
-            color_resol (int): Number of color levels in the plot.
-            figsize (int): Size of the figure.
-            cmap (str): Colormap to use.
+            stokes (`str`): The Stokes parameter to plot. Can be :math:`I`,:math:`Q`,:math:`U`,:math:`V`.
+            color_resol (`int`): Number of color levels in the plot.
+            figsize (`int`): Size of the figure.
+            cmap (`str`): Colormap to use.
             return_fields (bool): Flag indicating whether to return the plot fields.
 
         Returns
@@ -200,17 +200,17 @@ class BeamPolar:
 def _get_interp_val_from_polar_original(
     beam: BeamPolar, theta: np.ndarray, phi: np.ndarray, s: int
 ):
-    """Calculate the value of the beam at a given theta, phi, and Stokes parameter.
-    The value is interpolated from `BeamPolar` by a given theta and phi.
+    """Calculate the value of the beam at a given :math:`\theta`, :math:`\phi`, and Stokes parameter.
+    The value is interpolated from :class:`.BeamPolar` by a given :math:`\theta` and :math:`\phi`.
 
     Args:
-        beam (BeamPolar): The polar beam object.
-        theta (float or array-like): The theta value(s) at which to evaluate the beam.
-        phi (float or array-like): The phi value(s) at which to evaluate the beam.
-        s (int): The Stokes parameter index.
+        beam (:class:`.BeamPolar`): The polar beam object.
+        theta (`float` or `array-like`): The :math:`\theta` value(s) at which to evaluate the beam.
+        phi (`float` or `array-like`): The :math:`\phi` value(s) at which to evaluate the beam.
+        s (`int`): The Stokes parameter index.
 
     Returns:
-        value (float or array-like): The value(s) of the beam at the given theta, phi, and Stokes parameter.
+        value (`float` or `array-like`): The value(s) of the beam at the given :math:`\theta`, :math:`\phi` and Stokes parameter.
 
     """
     # TODO replace this function by scipy interpolation

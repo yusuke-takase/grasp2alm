@@ -6,34 +6,20 @@ from scipy.special import iv as bessel_i
 
 
 def alm_index(lmax: int, ell: int, m: int) -> int:
-    "Return the index of an a_ℓm coefficient in an array"
+    """Return the index of an a_ℓm coefficient in an array"""
 
     return m * (2 * lmax + 1 - m) // 2 + ell
 
 
 class BeamGauss:
-    """Class to sample a gaussian beam.
-
-    Attributes:
-        amplitude (float): Amplitude of the beam.
-        fwhm_deg (float): Full width at half maximum (FWHM) of the beam.
-
-    Methods:
-        __init__(self, ): Initializes a BeamGauss object.
-        write2cut(self, path:str, header_1:str, header_2:str, vnum:int, ncut:int, co): Writes the formatted beam data to the specified path with the provided headers. Each cut contains vnum lines of data.
-        write2grid(self,path:str,header:str,beam): Writes the formatted beam data to the specified path with the provided headers. Each cut contains vnum lines of data.
-        gaussian_beam(self, theta: float): Calculates the value of a Gaussian beam at a given angle.
-        get_alm(self, lmax: int, mmax: int, ellipticity: Optional[float] = 1.0, psi_ell_rad: Optional[float] = 0.0, psi_pol_rad: Union[float, None] = 0.0, cross_polar_leakage: Optional[float] = 0.0): Return an array of spherical harmonics :math:`a_{\ell m}` that represents a Gaussian beam
-        get_profile(self, nside): Provide the beam map profile at a given nside.
-    """
+    """Class to generate a gaussian beam."""
 
     def __init__(self, fwhm_deg: float, amplitude: float = 1.0):
-        """
-        Initializes a BeamGauss object.
+        """Initializes a BeamGauss object.
 
         Args:
-            amplitude (float): Amplitude of the beam.
-            fwhm (float): Full width at half maximum (FWHM) of the beam.
+            amplitude (`float`): Amplitude of the beam.
+            fwhm (`float`): Full width at half maximum (FWHM) of the beam.
 
         Raises:
             ValueError: If amplitude or fwhm is not a number.
@@ -48,28 +34,26 @@ class BeamGauss:
         self.fwhm_deg = fwhm_deg
 
     def gaussian_beam(self, theta: float):
-        """
-        Calculates the value of a Gaussian beam at a given angle.
+        """Calculates the value of a Gaussian beam at a given angle.
 
         Args:
-            theta (float): The angle at which to calculate the beam value.
+            theta (`float`): The angle at which to calculate the beam value.
 
         Returns:
-            float: The value of the Gaussian beam at the given angle.
+            `float`: The value of the Gaussian beam at the given angle.
         """
         fwhm_rad = np.deg2rad(self.fwhm_deg)
         sigmasq = fwhm_rad * fwhm_rad / (8 * np.log(2.0))
         return self.amplitude * np.exp(-0.5 * theta**2 / sigmasq)
 
     def write2cut(self, path: str, vini: int, vnum: int, ncut: int):
-        """
-        Writes the formatted beam data to the specified path with the provided headers.
+        """Writes the formatted beam data to the specified path with the provided headers.
         Each cut contains vnum lines of data.
 
         Args:
-            path (str): The path to write the beam data to.
-            vnum (int): The number of lines in each cut.
-            ncut (int): The number of cuts.
+            path (`str`): The path to write the beam data to.
+            vnum (`int`): The number of lines in each cut.
+            ncut (`int`): The number of cuts.
             co (array): The beam data.
 
         Raises:
@@ -100,18 +84,17 @@ class BeamGauss:
     def write2thetaphigrid(
         self, path: str, xs: float, ys: float, xe: float, ye: float, nx: int, ny: int
     ):
-        """
-        Writes the formatted beam data to the specified path with the provided headers.
+        """Writes the formatted beam data to the specified path with the provided headers.
         Each cut contains vnum lines of data.
 
         Args:
-            path (str): The path to write the beam data to.
-            xs (float): The starting x-coordinate of the grid.
-            ys (float): The starting y-coordinate of the grid.
-            xe (float): The ending x-coordinate of the grid.
-            ye (float): The ending y-coordinate of the grid.
-            nx (int): The number of grid points in the x-direction.
-            ny (int): The number of grid points in the y-direction.
+            path (`str`): The path to write the beam data to.
+            xs (`float`): The starting x-coordinate of the grid.
+            ys (`float`): The starting y-coordinate of the grid.
+            xe (`float`): The ending x-coordinate of the grid.
+            ye (`float`): The ending y-coordinate of the grid.
+            nx (`int`): The number of grid points in the x-direction.
+            ny (`int`): The number of grid points in the y-direction.
         """
         header: str = (
             "VERSION: TICRA-EM-FIELD-V0.1\n"
@@ -149,9 +132,8 @@ class BeamGauss:
         psi_ell_rad: Optional[float] = 0.0,
         psi_pol_rad: Union[float, None] = 0.0,
         cross_polar_leakage: Optional[float] = 0.0,
-    ):
-        """
-        Return an array of spherical harmonics :math:`a_{\ell m}` that represents a Gaussian beam
+    ) -> np.ndarray:
+        """Return an array of spherical harmonics :math:`a_{\ell m}` that represents a Gaussian beam
 
         Args:
             lmax (`int`): The maximum value for :math:`\ell`
@@ -179,7 +161,6 @@ class BeamGauss:
         nval = Alm.getsize(lmax, mmax)
         alm = np.zeros((num_stokes, nval), dtype=np.complex128)
         fwhm_rad = np.deg2rad(self.fwhm_deg)
-        # alm = allocate_alm(lmax, mmax, nstokes=num_stokes)
 
         if not is_elliptical:
             # Circular beam
@@ -276,7 +257,7 @@ class BeamGauss:
             nside (`int`): The nside of the map.
 
         Returns:
-            `numpy.ndarray`: The beam map.
+            `numpy.ndarray`: The beam profile map.
         """
-        assert hasattr(self, 'alm'), "Please run get_alm() first"
+        assert hasattr(self, "alm"), "Please run BeamGauss.get_alm() first"
         return hp.alm2map(self.alm, nside)

@@ -12,24 +12,24 @@ class BeamGrid:
     """Class to hold the data from a beam grid file of GRASP.
 
     Args:
-        header (str): Record with identification text.
-        ktype (int): Specifies type of file format.
-        nset (int): Number of field sets or beams.
-        klimit (int): Specification of limits in a 2D grid.
-        icomp (int): Control parameter of field components.
-        ncomp (int): Number of field components.
-        igrid (int): Control parameter of field grid type.
-        ix (int): Centre of set or beam No. i.
-        iy (int): Centre of set or beam No. i.
-        xs (float): Start x-coordinate of the grid.
-        ys (float): Start y-coordinate of the grid.
-        xe (float): End x-coordinate of the grid.
-        ye (float): End y-coordinate of the grid.
-        nx (int): Number of columns.
-        ny (int): Number of rows.
-        freq (float): Frequency.
-        frequnit (str): Frequency unit.
-        amp (np.ndarray): Array of complex amplitudes [theta, phi].
+        header (`str`): Record with identification text.
+        ktype (`int`): Specifies type of file format.
+        nset (`int`): Number of field sets or beams.
+        klimit (`int`): Specification of limits in a 2D grid.
+        icomp (`int`): Control parameter of field components.
+        ncomp (`int`): Number of field components.
+        igrid (`int`): Control parameter of field grid type.
+        ix (`int`): Centre of set or beam No. :math:`i`.
+        iy (`int`): Centre of set or beam No. :math:`i`.
+        xs (`float`): Start x-coordinate of the grid.
+        ys (`float`): Start y-coordinate of the grid.
+        xe (`float`): End x-coordinate of the grid.
+        ye (`float`): End y-coordinate of the grid.
+        nx (`int`): Number of columns.
+        ny (`int`): Number of rows.
+        freq (`float`): Frequency.
+        frequnit (`str`): Frequency unit.
+        amp (`numpy.ndarray`): Array of complex amplitudes [:math:`\theta`, :math:`\phi`].
     """
 
     header: str = ""
@@ -52,18 +52,16 @@ class BeamGrid:
     amp: np.ndarray = None
 
     def __init__(self, filepath):
-        """
-        Initialize the BeamGrid object.
-        """
+        """Initialize the BeamGrid object."""
+
         super().__init__()
         self.filepath = filepath
         self.filename = filepath.split("/")[-1]
         self.__post_init__()
 
     def __post_init__(self):
-        """
-        Read and parse the beam grid file.
-        """
+        """Read and parse the beam grid file."""
+
         if not self.filepath.endswith(".grd"):
             raise ValueError(
                 "Error in BeamGrid.__post_init__: The file is not a GRASP grid file."
@@ -141,14 +139,14 @@ class BeamGrid:
                     self.amp[0, i - 1, j] = float(line[0]) + float(line[1]) * 1j
                     self.amp[1, i - 1, j] = float(line[2]) + float(line[3]) * 1j
 
-    def to_polar(self, copol_axis="x"):
+    def to_polar(self, copol_axis="x") -> BeamPolar:
         """Converts beam in polar grid format into Stokes
         parameters on a polar grid. The value of copol
         specifies the alignment of the co-polar basis
         ('x' or 'y') of the input GRASP file.
 
         Args:
-            copol_axis (str): The copolarization axis. Must be 'x' or 'y'.
+            copol_axis (`str`): The copolarization axis. Must be 'x' or 'y'.
 
         Returns:
             BeamPolar: The beam grid in polar coordinates.
@@ -229,15 +227,15 @@ class BeamGrid:
         """Plot the beam pattern.
 
         Args:
-            pol (str): The polarization to plot. Must be either 'co' or 'cx'.
-            color_resol (int): The number of color levels in the plot.
-            figsize (int): The size of the figure.
-            cmap (str): The colormap to use for the plot.
-            return_fields (bool): Whether to return the x, y, and z values.
+            pol (`str`): The polarization to plot. Must be either 'co' or 'cx'.
+            color_resol (`int`): The number of color levels in the plot.
+            figsize (`int`): The size of the figure.
+            cmap (`str`): The colormap to use for the plot.
+            return_fields (`bool`): Whether to return the x, y, and z values.
 
         Returns
         -------
-            None: if return_fields is False (default).
+            `None`: if return_fields is False (default).
             (ndarray,ndarray,ndarray): if return_fields is True returns x,y,z values of the plot.
 
         """
