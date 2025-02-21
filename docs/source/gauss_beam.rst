@@ -22,27 +22,7 @@ where:
 Spherical Harmonics Representation
 ----------------------------------
 
-
-:meth:`.BeamGauss.get_alm()`: Computes the spherical harmonics coefficients :math:`a_{\ell m}` for the beam.
-
-The beam can be represented in terms of spherical harmonics :math:`a_{\ell m}`. For a circular Gaussian beam, the coefficients are given by:
-
-.. math::
-   a_{\ell 0} = \sqrt{\frac{2\ell + 1}{4\pi}} \exp\left(-\frac{\ell(\ell + 1)\sigma^2}{2}\right)
-
-For an elliptical Gaussian beam, the coefficients are more complex and involve modified Bessel functions of the first kind :math:`I_v(x)`:
-
-.. math::
-   a_{\ell m} = \sqrt{\frac{2\ell + 1}{4\pi}} \exp\left(-\frac{\ell(\ell + 1)\sigma_x^2 (1 - e^2/2)}{2}\right) I_{\frac{m}{2}}\left(\frac{\ell(\ell + 1)\sigma_x^2 e^2}{4}\right)
-
-where:
-- :math:`\sigma_x` is the standard deviation along the major axis of the ellipse.
-- :math:`e` is the ellipticity of the beam.
-
-Polarization
-------------
-
-The class also supports polarized beams, where the polarization angle :math:`\psi_{\text{pol}}` and cross-polar leakage are taken into account. The spherical harmonics coefficients for the polarized components are adjusted accordingly.
+:meth:`.BeamGauss.get_alm()`: Computes the spherical harmonics coefficients :math:`a_{\ell m}` for the beam.　The class also supports polarized beams, where the polarization angle :math:`\psi_{\text{pol}}` and cross-polar leakage are taken into account. The spherical harmonics coefficients for the polarized components are adjusted accordingly.
 
 Circular Beam
 -------------
@@ -50,12 +30,12 @@ Circular Beam
 For a circular Gaussian beam, the spherical harmonics coefficients :math:`a_{\ell m}` are computed as follows:
 
 .. math::
-   a_{\ell 0} = \sqrt{\frac{2\ell + 1}{4\pi}} \exp\left(-\frac{\ell(\ell + 1)\sigma^2}{2}\right)
+   a_{\ell 0}^{T} = \sqrt{\frac{2\ell + 1}{4\pi}} \exp\left(-\frac{\ell(\ell + 1)\sigma^2}{2}\right)
 
 If the beam is polarized, the coefficients for the polarized components are given by:
 
 .. math::
-   a_{\ell 2} = \sqrt{\frac{2\ell + 1}{32\pi}} \exp\left(-\frac{\ell(\ell + 1)\sigma^2}{2}\right) \left(\cos(2\psi_{\text{pol}}) - i\sin(2\psi_{\text{pol}})\right)
+   a_{\ell 2}^{E} + i a_{\ell 2}^{B} = \sqrt{\frac{2\ell + 1}{32\pi}} \exp\left(-\frac{\ell(\ell + 1)\sigma^2}{2}\right) \left(\cos(2\psi_{\text{pol}}) - i\sin(2\psi_{\text{pol}})\right)
 
 Elliptical Beam
 ---------------
@@ -63,17 +43,17 @@ Elliptical Beam
 For an elliptical Gaussian beam, the coefficients are more complex and involve modified Bessel functions of the first kind :math:`I_v(x)`:
 
 .. math::
-   a_{\ell m} = \sqrt{\frac{2\ell + 1}{4\pi}} \exp\left(-\frac{\ell(\ell + 1)\sigma_x^2 (1 - e^2/2)}{2}\right) I_{\frac{m}{2}}\left(\frac{\ell(\ell + 1)\sigma_x^2 e^2}{4}\right)
+   a_{\ell m}^{T} = \sqrt{\frac{2\ell + 1}{4\pi}} \exp\left(-\frac{\ell(\ell + 1)\sigma_x^2 (1 - e^2/2)}{2}\right) I_{\frac{m}{2}}\left(\frac{\ell(\ell + 1)\sigma_x^2 e^2}{4}\right)
 
 where:
 
 * :math:`\sigma_x` is the standard deviation along the major axis of the ellipse.
-* :math:`e` is the ellipticity of the beam.
+* :math:`e` is the ellipticity of the beam. When :math:`e=1`, the beam is circular.
 
 For the polarized components, the coefficients are adjusted based on the polarization angle :math:`\psi_{\text{pol}}` and the inclination angle :math:`\psi_{\text{ell}}`:
 
 .. math::
-   a_{\ell m} = \sqrt{\frac{2\ell + 1}{8\pi}} \exp\left(-\frac{\ell(\ell + 1)\sigma_x^2 (1 - e^2/2)}{2}\right) \left(\cos(2(\psi_{\text{pol}} - \psi_{\text{ell}})) - i\sin(2(\psi_{\text{pol}} - \psi_{\text{ell}}))\right)
+   a_{\ell m}^{E} + i a_{\ell m}^{B} = \sqrt{\frac{2\ell + 1}{8\pi}} \exp\left(-\frac{\ell(\ell + 1)\sigma_x^2 (1 - e^2/2)}{2}\right) \left(\cos(2(\psi_{\text{pol}} - \psi_{\text{ell}})) - i\sin(2(\psi_{\text{pol}} - \psi_{\text{ell}}))\right)
 
 Cross-Polar Leakage
 -------------------
@@ -81,7 +61,8 @@ Cross-Polar Leakage
 The multipoles are adjusted for cross-polar leakage by scaling the coefficients:
 
 .. math::
-   a_{\ell m} \rightarrow a_{\ell m} (1 + \text{cross\_polar\_leakage})
+   a_{\ell m}^{T} \rightarrow a_{\ell m}^{T} (1 + \text{cross-polar leakage})\\
+   a_{\ell m}^{E,B} \rightarrow a_{\ell m}^{E,B} (1 - \text{cross-polar leakage})
 
 Normalization
 -------------
@@ -89,10 +70,11 @@ Normalization
 Finally, the coefficients are normalized:
 
 .. math::
-   a_{\ell m} \rightarrow a_{\ell m} \times -\sqrt{2}
+   a_{\ell m}^{E,B} \rightarrow a_{\ell m}^{E,B} \times -\sqrt{2}
 
-Get beam map
-------------
+Get Beam Profile Map
+--------------------
+
 :meth:`.BeamGauss.get_profile()`: Provides the beam map profile at a given `nside`.
 
 Example Usage
