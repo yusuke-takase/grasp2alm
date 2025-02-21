@@ -250,7 +250,7 @@ class BeamGauss:
         self.alm = alm
         return alm
 
-    def get_profile(self, nside):
+    def get_profile(self, nside: int):
         """Provide the beam map profile at a given nside.
 
         Args:
