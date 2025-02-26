@@ -40,7 +40,7 @@ If the beam is polarized, the coefficients for the polarized components are give
 Elliptical Beam
 ---------------
 
-For an elliptical Gaussian beam, the coefficients are more complex and involve modified Bessel functions of the first kind :math:`I_v(x)`:
+For an elliptical Gaussian beam, the coefficients are more complex and involve modified Bessel functions of the first kind :math:`I_v(x)` and we must promise that :math:`m` is even:
 
 .. math::
    a_{\ell m}^{T} = \sqrt{\frac{2\ell + 1}{4\pi}} \exp\left(-\frac{\ell(\ell + 1)\sigma_x^2 (1 - e^2/2)}{2}\right) I_{\frac{m}{2}}\left(\frac{\ell(\ell + 1)\sigma_x^2 e^2}{4}\right)
@@ -53,16 +53,16 @@ where:
 For the polarized components, the coefficients are adjusted based on the polarization angle :math:`\psi_{\text{pol}}` and the inclination angle :math:`\psi_{\text{ell}}`:
 
 .. math::
-   a_{\ell m}^{E} + i a_{\ell m}^{B} = \sqrt{\frac{2\ell + 1}{8\pi}} \exp\left(-\frac{\ell(\ell + 1)\sigma_x^2 (1 - e^2/2)}{2}\right) \left(\cos(2(\psi_{\text{pol}} - \psi_{\text{ell}})) - i\sin(2(\psi_{\text{pol}} - \psi_{\text{ell}}))\right)
+   a_{\ell m}^{E} + i a_{\ell m}^{B} = \sqrt{\frac{2\ell + 1}{8\pi}} \exp\left(-\frac{\ell(\ell + 1)\sigma_x^2 (1 - e^2/2)}{2}\right) \left(I_{\frac{m+2}{2}}+I_{\frac{m-2}{2}}\right) \left(\cos(2(\psi_{\text{pol}} - \psi_{\text{ell}})) - i\sin(2(\psi_{\text{pol}} - \psi_{\text{ell}}))\right)
 
 Cross-Polar Leakage
 -------------------
 
-The multipoles are adjusted for cross-polar leakage by scaling the coefficients:
+The multipoles are adjusted for cross-polar leakage, :math:`\epsilon` by scaling the coefficients:
 
 .. math::
-   a_{\ell m}^{T} \rightarrow a_{\ell m}^{T} (1 + \text{cross-polar leakage})\\
-   a_{\ell m}^{E,B} \rightarrow a_{\ell m}^{E,B} (1 - \text{cross-polar leakage})
+   a_{\ell m}^{T} \rightarrow a_{\ell m}^{T} (1 + \epsilon)\\
+   a_{\ell m}^{E,B} \rightarrow a_{\ell m}^{E,B} (1 - \epsilon)
 
 Normalization
 -------------

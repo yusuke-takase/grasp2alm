@@ -199,8 +199,8 @@ class BeamGauss:
                 # Do G and C components
 
                 rho = psi_pol_rad - psi_ell_rad
-                f1 = np.cos(2 * rho) - np.sin(2 * rho) * 1j
-                f2 = np.cos(2 * rho) + np.sin(2 * rho) * 1j
+                f1 = np.cos(2 * rho) - np.sin(2 * rho) * 1.0j
+                f2 = np.cos(2 * rho) + np.sin(2 * rho) * 1.0j
 
                 for ell in range(2, lmax + 1):
                     tmp = ell * (ell + 1) * sigma_x_squared
@@ -225,13 +225,13 @@ class BeamGauss:
                         b1 = f1 * bessel_i((m - 2) // 2, tmp2)
                         b2 = f2 * bessel_i((m + 2) // 2, tmp2)
                         alm[1, alm_index(lmax, ell, m)] = value * (b1 + b2)
-                        alm[2, alm_index(lmax, ell, m)] = value * (b1 - b2) * 1j
+                        alm[2, alm_index(lmax, ell, m)] = value * (b1 - b2) * 1.0j
 
             # Rotate the multipoles through angle psi_ell about the z-axis, so
             # the beam is in the right orientation (only need this for even m).
 
             for m in range(0, mmax + 1, 2):
-                f1 = np.cos(m * psi_ell_rad) - np.sin(m * psi_ell_rad) * 1j
+                f1 = np.cos(m * psi_ell_rad) - np.sin(m * psi_ell_rad) * 1.0j
                 for n in range(num_stokes):
                     for ell in range(m, lmax + 1):
                         alm[n, alm_index(lmax, ell, m)] *= f1
